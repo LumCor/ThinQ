@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btPerfil"
+        android:icon="@drawable/perfil"
+        android:title="Perfil" />
+    <item
+        android:id="@+id/btTareas"
+        android:icon="@drawable/tareas"
+        android:title="Tareas Pendientes" />
+    <item
+        android:id="@+id/btAjustes"
+        android:icon="@drawable/ajustes"
+        android:title="Ajustes"/>
+
+</menu>
