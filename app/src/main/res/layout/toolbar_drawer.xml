@@ -6,7 +6,7 @@
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Toolbar"
-        app:title=" xd pepe"
+        app:title="xd"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#57c2a8"
