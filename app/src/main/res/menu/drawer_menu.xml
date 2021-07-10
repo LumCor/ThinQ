@@ -6,6 +6,10 @@
         android:icon="@drawable/perfil"
         android:title="Perfil" />
     <item
+        android:id="@+id/btGaleria"
+        android:icon="@drawable/ic_baseline_photo_album_24"
+        android:title="Galería Multimedia" />
+    <item
         android:id="@+id/btTareas"
         android:icon="@drawable/tareas"
         android:title="Tareas Pendientes" />

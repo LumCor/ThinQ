@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
+import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
 import mx.unam.ingenieria.thinq.Fragments.PantallaPrincipal_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Tareas_fragment;
 
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction fragmentTransaction;
     private PantallaPrincipal_fragment pantallaPrincipal_fragment;
     private Tareas_fragment tareas_fragment;
+    private Galeria_fragment galeria_fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         pantallaPrincipal_fragment=new PantallaPrincipal_fragment();
         tareas_fragment=new Tareas_fragment();
+        galeria_fragment=new Galeria_fragment();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -56,20 +59,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
-        if (item.getItemId()==R.id.btPerfil)
+
+        switch (item.getItemId())
         {
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, pantallaPrincipal_fragment);
-            fragmentTransaction.commit();
+            case R.id.btPerfil:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, pantallaPrincipal_fragment);
+                break;
+            case R.id.btTareas:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, tareas_fragment);
+                break;
+            case R.id.btGaleria:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, galeria_fragment);
+                break;
         }
-        if (item.getItemId()==R.id.btTareas)
-        {
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, tareas_fragment);
-            fragmentTransaction.commit();
-        }
+        fragmentTransaction.commit();
         return false;
     }
 }
