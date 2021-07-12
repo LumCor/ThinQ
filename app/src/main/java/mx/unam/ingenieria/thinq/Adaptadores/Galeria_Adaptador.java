@@ -1,8 +1,10 @@
 package mx.unam.ingenieria.thinq.Adaptadores;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -14,9 +16,10 @@ import java.util.List;
 
 public class Galeria_Adaptador extends BaseAdapter {
     private Context context;
-    public List<String> imageArray;
+    public List<Bitmap> imageArray;
+    private int hola=0;
 
-    public Galeria_Adaptador(Context context, List<String> imageArray) {
+    public Galeria_Adaptador(Context context, List<Bitmap> imageArray) {
         this.context = context;
         this.imageArray = imageArray;
     }
@@ -42,7 +45,7 @@ public class Galeria_Adaptador extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView=new ImageView(context);
-        imageView.setImageBitmap(BitmapFactory.decodeFile(imageArray.get(position)));
+        imageView.setImageBitmap(imageArray.get(position));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setLayoutParams(new AbsListView.LayoutParams(350,350));
         return imageView;

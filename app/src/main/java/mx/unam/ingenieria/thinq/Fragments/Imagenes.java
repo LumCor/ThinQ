@@ -17,16 +17,14 @@ import java.util.ArrayList;
 public class Imagenes {
     public static ArrayList<String> Imagenes(Context context) {
 
-        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        int column_index_data;
-        Cursor cursor;
-        Uri uri;
+        //Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //int column_index_data;
+        //Cursor cursor;
+        //Uri uri;
         ArrayList<String> AllImages=new ArrayList<>();
         String AbsoultePathOfImage = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() ;
 
         File file = new File(AbsoultePathOfImage);
-        Log.d("Ojo",AbsoultePathOfImage);
-        Log.d("Ojo",String.valueOf(file.listFiles()));
         File[] files = file.listFiles();
         ArrayList<String> imagePaths = new ArrayList<String>();
         for (int i = 0; i < files.length; i++)
