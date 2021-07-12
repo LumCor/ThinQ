@@ -98,7 +98,16 @@ public class Galeria_fragment extends Fragment {
         }
 
     }
-
+    private File crearImg() throws IOException {
+        String name="foto_ThinQ_";
+        File directorio= getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        Log.d("Ojo4",directorio.toString());
+        Log.d("Ojo4",String.valueOf(directorio.exists()));
+        File img=File.createTempFile(name,".jpg",directorio);
+        ruta=img.getAbsolutePath();
+        Log.d("Ojo3",ruta);
+        return img;
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -107,14 +116,5 @@ public class Galeria_fragment extends Fragment {
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
             imageView.setImageBitmap(imgBitmap);
         }
-    }
-    private File crearImg() throws IOException {
-        String name="foto_ThinQ_";
-        File directorio= getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        Log.d("Ojo4",directorio.toString());
-        File img=File.createTempFile(name,".jpg",directorio);
-        ruta=img.getAbsolutePath();
-        Log.d("Ojo3",ruta);
-        return img;
     }
 }
