@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
+import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
 import mx.unam.ingenieria.thinq.Fragments.PantallaPrincipal_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Tareas_fragment;
 
@@ -29,13 +30,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction fragmentTransaction;
     private PantallaPrincipal_fragment pantallaPrincipal_fragment;
     private Tareas_fragment tareas_fragment;
+    private Galeria_menu galeria_menu;
     private Galeria_fragment galeria_fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         pantallaPrincipal_fragment=new PantallaPrincipal_fragment();
         tareas_fragment=new Tareas_fragment();
+        galeria_menu=new Galeria_menu();
         galeria_fragment=new Galeria_fragment();
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btGaleria:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, galeria_fragment);
+                fragmentTransaction.replace(R.id.container,galeria_fragment );
                 break;
         }
         fragmentTransaction.commit();
