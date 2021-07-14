@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btGaleria:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,galeria_fragment );
+                fragmentTransaction.replace(R.id.container,galeria_menu);
                 break;
         }
         fragmentTransaction.commit();
