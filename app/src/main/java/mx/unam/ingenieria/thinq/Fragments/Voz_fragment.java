@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.unam.ingenieria.thinq.Adaptadores.Ficha_Adaptador;
 import mx.unam.ingenieria.thinq.Adaptadores.Galeria_Adaptador;
 import mx.unam.ingenieria.thinq.Adaptadores.ListaAudio_Adaptador;
 import mx.unam.ingenieria.thinq.R;
@@ -40,13 +42,13 @@ public class Voz_fragment extends Fragment {
     private static final int Permission_toRecord=200;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.voz_fragment,container,false);
-
-        ExisteMic();
         listAudios=(ListView) view.findViewById(R.id.ListaAudio);
+        try { ExisteMic(); } catch (IOException e) { e.printStackTrace(); }
         btRecord=view.findViewById(R.id.btRecordVoice);
         btStop=view.findViewById(R.id.btStopVoice);
         btStop.setEnabled(false);
@@ -89,8 +91,7 @@ public class Voz_fragment extends Fragment {
         
         return view;
     }
-    private void ExisteMic()
-    {
+    private void ExisteMic() throws IOException {
         if(getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE))
         {
             if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)==PackageManager.PERMISSION_DENIED)
@@ -110,23 +111,35 @@ public class Voz_fragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==Permission_toRecord)
         {
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED)
-                cargarAudios();
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+                try { cargarAudios(); } catch (IOException e) { e.printStackTrace(); }
+            }
             else
                 Toast.makeText(getContext(),"Permiso denegado",Toast.LENGTH_SHORT).show();
         }
     }
-    private void cargarAudios()
-    {
+    private void cargarAudios() throws IOException {
+        mediaPlayer=new MediaPlayer();
         ArrayList<String> audios=new ArrayList<>();
+        ArrayList<Ficha_Adaptador> audiosdatos=new ArrayList<>();
+        //String[] names;
         String AbsoultePathOfImage = getActivity().getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath() ;
         File file = new File(AbsoultePathOfImage);
         File[] files = file.listFiles();
+        //names=new String[files.length];
         for (int i = 0; i < files.length; i++)
         {
             audios.add(files[i].getAbsolutePath());
+            mediaPlayer.setDataSource(audios.get(i));
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            //names[i]=files[i].getAbsolutePath().substring(files[i].getAbsolutePath().indexOf("audio_ThinQ_"));
+            audiosdatos.add(new Ficha_Adaptador(files[i].getAbsolutePath().substring(files[i].getAbsolutePath().indexOf("audio_ThinQ_")),mediaPlayer.getDuration()));
+            Log.d("Ojo",String.valueOf(files[i].lastModified()));
+            mediaPlayer.stop();
         }
-        //listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audios));
+        //listAudios.setAdapter(new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1,names));
+        listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audiosdatos));
     }
     private String getRecordingFilePath() throws IOException {
         ContextWrapper contextWrapper=new ContextWrapper(getContext());
