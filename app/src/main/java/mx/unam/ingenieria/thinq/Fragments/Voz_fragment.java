@@ -1,10 +1,12 @@
 package mx.unam.ingenieria.thinq.Fragments;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.ContextWrapper;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -42,7 +45,7 @@ public class Voz_fragment extends Fragment {
     private static final int Permission_toRecord=200;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
-
+    private ArrayList<String> audios=new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class Voz_fragment extends Fragment {
                 Toast.makeText(getContext(),"La grabación ha comenzado",Toast.LENGTH_SHORT).show();
                 btRecord.setEnabled(false);
                 btStop.setEnabled(true);
+                btRecord.setVisibility(View.INVISIBLE);
+                btStop.setVisibility(View.VISIBLE);
                 }
                 catch (Exception exception)
                 {
@@ -80,11 +85,15 @@ public class Voz_fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder=null;
+                try { cargarAudios(); } catch (IOException e) { e.printStackTrace(); }
                 btRecord.setEnabled(true);
                 btStop.setEnabled(false);
+                btRecord.setVisibility(View.VISIBLE);
+                btStop.setVisibility(View.INVISIBLE);
                 Toast.makeText(getContext(),"La grabación terminó",Toast.LENGTH_SHORT).show();
             }
         });
@@ -119,32 +128,30 @@ public class Voz_fragment extends Fragment {
         }
     }
     private void cargarAudios() throws IOException {
-        mediaPlayer=new MediaPlayer();
-        ArrayList<String> audios=new ArrayList<>();
+        audios.clear();
         ArrayList<Ficha_Adaptador> audiosdatos=new ArrayList<>();
-        //String[] names;
         String AbsoultePathOfImage = getActivity().getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath() ;
         File file = new File(AbsoultePathOfImage);
         File[] files = file.listFiles();
-        //names=new String[files.length];
         for (int i = 0; i < files.length; i++)
         {
+            mediaPlayer=new MediaPlayer();
             audios.add(files[i].getAbsolutePath());
             mediaPlayer.setDataSource(audios.get(i));
             mediaPlayer.prepare();
             mediaPlayer.start();
-            //names[i]=files[i].getAbsolutePath().substring(files[i].getAbsolutePath().indexOf("audio_ThinQ_"));
-            audiosdatos.add(new Ficha_Adaptador(files[i].getAbsolutePath().substring(files[i].getAbsolutePath().indexOf("audio_ThinQ_")),mediaPlayer.getDuration()));
-            Log.d("Ojo",String.valueOf(files[i].lastModified()));
+            audiosdatos.add(new Ficha_Adaptador(files[i].getAbsolutePath().substring(files[i].getAbsolutePath().indexOf("audio_ThinQ_")),mediaPlayer.getDuration(),files[i].lastModified()));
             mediaPlayer.stop();
+            mediaPlayer.release();
+            Log.d("Ojo", "Se han añadido "+String.valueOf(i+1)+" canciones");
         }
-        //listAudios.setAdapter(new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1,names));
-        listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audiosdatos));
+        listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audiosdatos,audios));
     }
     private String getRecordingFilePath() throws IOException {
         ContextWrapper contextWrapper=new ContextWrapper(getContext());
         File directorio=contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
         File file=File.createTempFile("audio_ThinQ_",".mp3",directorio);
+
         return file.getPath();
     }
 }

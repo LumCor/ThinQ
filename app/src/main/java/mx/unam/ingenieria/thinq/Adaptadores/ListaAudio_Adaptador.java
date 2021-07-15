@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import mx.unam.ingenieria.thinq.R;
@@ -23,10 +26,13 @@ import mx.unam.ingenieria.thinq.R;
 public class ListaAudio_Adaptador extends BaseAdapter {
     private Context context;
     private ArrayList<Ficha_Adaptador> audiosArray;
+    private ArrayList<String> audios;
+    private MediaPlayer mediaPlayer;
 
-    public ListaAudio_Adaptador(Context context, ArrayList<Ficha_Adaptador> audiosArray) {
+    public ListaAudio_Adaptador(Context context, ArrayList<Ficha_Adaptador> audiosArray, ArrayList<String> audios) {
         this.context = context;
         this.audiosArray = audiosArray;
+        this.audios=audios;
     }
 
     @Override
@@ -50,9 +56,8 @@ public class ListaAudio_Adaptador extends BaseAdapter {
         view=LayoutInflater.from(context).inflate(R.layout.ficha_audio,null);
         Ficha_Adaptador ficha=(Ficha_Adaptador)getItem(position);
         TextView nombre=view.findViewById(R.id.name_audio),
-                duracion=view.findViewById(R.id.duracion_audio);
-                //fecha=view.findViewById(R.id.date_audio);
-        ImageButton boton=view.findViewById(R.id.btFicha);
+                duracion=view.findViewById(R.id.duracion_audio),
+                fecha=view.findViewById(R.id.date_audio);
         nombre.setText(ficha.getName());
         float tiempo= ficha.getDuracion()/1000;
         int min, seg, mseg;
@@ -60,31 +65,68 @@ public class ListaAudio_Adaptador extends BaseAdapter {
         seg=(int)(tiempo-min*60);
         mseg=(int)(tiempo-min*60-seg)*10;
         String cadena;
-        if((int)tiempo/60<9)
+        if((int)tiempo/60<10)
             cadena="0"+String.valueOf(min)+":";
         else
             cadena=String.valueOf(min);
-        if((int)(tiempo-min*60)<9)
+        if((int)(tiempo-min*60)<10)
             cadena=cadena+"0"+String.valueOf(seg)+":";
         else
             cadena=cadena+String.valueOf(seg)+":";
-        if((int)(tiempo-min*60-seg)*10<9)
+        if((int)(tiempo-min*60-seg)*10<10)
             cadena=cadena+"0"+String.valueOf(mseg);
         else
             cadena=cadena+String.valueOf(mseg);
         duracion.setText(cadena);
-        /*
-        Boolean reproduciendo=false;
-        if(reproduciendo==false)
-        {
-            boton.setImageResource(context.getResources().getIdentifier("mx.unam.ingenieria.thinq"+"@drawable/ic_baseline_play_circle_24",null,null));
-        }
+        Date date=new Date(ficha.getFecha());
+        Calendar calendar=new GregorianCalendar();
+        calendar.setTime(date);
+        if(calendar.get(Calendar.DATE)<10)
+            cadena="0"+String.valueOf(calendar.get(Calendar.DATE))+"/";
         else
-        {
-            boton.setImageResource(context.getResources().getIdentifier("mx.unam.ingenieria.thinq"+"@drawable/ic_baseline_stop_circle_24",null,null));
-        }
-*/
+            cadena=String.valueOf(calendar.get(Calendar.DATE))+"/";
+        if(calendar.get(Calendar.MONTH)<10)
+            cadena=cadena+"0"+String.valueOf(calendar.get(Calendar.MONTH))+"/";
+        else
+            cadena=cadena+String.valueOf(calendar.get(Calendar.MONTH))+"/";
+        cadena=cadena+String.valueOf(calendar.get(Calendar.YEAR));
+        fecha.setText(cadena);
+        final Boolean[] repro = {false};
+        ImageButton boton=view.findViewById(R.id.btFicha);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    if(repro[0] ==false)
+                    {
+                        mediaPlayer=new MediaPlayer();
+                        mediaPlayer.setDataSource(audios.get(position));
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                        boton.setImageResource(R.drawable.ic_baseline_stop_circle_24);
+                        repro[0] =true;
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp)
+                            {
+                                repro[0]=false;
+                                boton.setImageResource(R.drawable.ic_baseline_play_circle_24);
+                                mediaPlayer.release();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        mediaPlayer.stop();
+                        repro[0] =false;
+                        boton.setImageResource(R.drawable.ic_baseline_play_circle_24);
+                    }
 
+                } catch (IOException e) {e.printStackTrace(); }
+            }
+        });
         return view;
     }
 }
