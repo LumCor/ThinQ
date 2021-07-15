@@ -37,7 +37,8 @@
         </provider>
 
             <activity android:name=".Splash"
-                android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+                android:theme="@style/Theme.AppCompat.NoActionBar">
+                //android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
