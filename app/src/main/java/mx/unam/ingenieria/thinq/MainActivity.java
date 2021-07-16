@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
+import mx.unam.ingenieria.thinq.Fragments.Estadisticas_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
 import mx.unam.ingenieria.thinq.Fragments.PantallaPrincipal_fragment;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Tareas_fragment tareas_fragment;
     private Galeria_menu galeria_menu;
     private Galeria_fragment galeria_fragment;
+    private Estadisticas_fragment estadisticas_fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tareas_fragment=new Tareas_fragment();
         galeria_menu=new Galeria_menu();
         galeria_fragment=new Galeria_fragment();
+        estadisticas_fragment=new Estadisticas_fragment();
 
 
         super.onCreate(savedInstanceState);
@@ -81,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,galeria_menu);
                 break;
+            case R.id.btEstadisticas:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,estadisticas_fragment).commit();
+                break;
+
         }
         fragmentTransaction.commit();
         return false;
