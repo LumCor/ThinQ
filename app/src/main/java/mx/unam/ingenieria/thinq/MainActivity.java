@@ -85,7 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.container,galeria_menu);
                 break;
             case R.id.btEstadisticas:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,estadisticas_fragment).commit();
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container,estadisticas_fragment);
                 break;
 
         }
