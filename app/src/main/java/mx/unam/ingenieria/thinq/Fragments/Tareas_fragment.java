@@ -24,24 +24,6 @@ public class Tareas_fragment extends Fragment {
     RecyclerView.LayoutManager manager;
     RecyclerView.Adapter myAdapter;
     ArrayList<TPendiente> tareas;
-/*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.tareas_fragment);
-        recyclerView = findViewById(R.id.listPendientes);
-        recyclerView.setHasFixedSize(true);
-        manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        tareas = new ArrayList<>();
-        tareas.add(new TPendiente("Matematica", "Serie", "facil"));
-        tareas.add(new TPendiente("Ecuaciones", "Investigacion", "masomenos"));
-        tareas.add(new TPendiente("Programacion", "ProyectoAlv :'v", "dificil"));
-
-        myAdapter = new TPendiente_Adaptador(this,tareas);
-        recyclerView.setAdapter(myAdapter);
-
-    }*/
 
     @Nullable
     @Override
