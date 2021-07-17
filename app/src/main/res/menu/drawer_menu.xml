@@ -17,5 +17,10 @@
         android:id="@+id/btAjustes"
         android:icon="@drawable/ajustes"
         android:title="Ajustes"/>
+    <item
+        android:id="@+id/btEstadisticas"
+        android:icon="@drawable/ic_covid"
+        android:title="Estadisticas"
+        />
 
 </menu>
