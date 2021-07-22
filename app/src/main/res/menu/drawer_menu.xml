@@ -6,6 +6,10 @@
         android:icon="@drawable/perfil"
         android:title="Perfil" />
     <item
+        android:id="@+id/btHorario"
+        android:title="Horario"
+        />
+    <item
         android:id="@+id/btGaleria"
         android:icon="@drawable/ic_baseline_photo_album_24"
         android:title="Galería Multimedia" />
@@ -22,5 +26,6 @@
         android:icon="@drawable/ic_covid"
         android:title="Estadisticas"
         />
+
 
 </menu>
