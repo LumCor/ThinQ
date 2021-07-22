@@ -14,6 +14,10 @@
         android:icon="@drawable/ic_baseline_photo_album_24"
         android:title="Galería Multimedia" />
     <item
+        android:id="@+id/btLibro"
+        android:title="Biblioteca libros"
+        />
+    <item
         android:id="@+id/btTareas"
         android:icon="@drawable/tareas"
         android:title="Tareas Pendientes" />
