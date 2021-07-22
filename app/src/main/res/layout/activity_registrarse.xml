@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarseActivity">
+
+    <LinearLayout
+        android:layout_width="365dp"
+        android:layout_height="548dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <EditText
+            android:id="@+id/txtNombre_Regis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nombre "
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/txtCorreo_Regis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Correo"
+            android:inputType="textWebEmailAddress|textPersonName" />
+
+        <EditText
+            android:id="@+id/txtContrasema_Regis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/txtConfirmaContra_Regis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Confirma Contraseña"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnIniciaSecion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="registrarUsuario"
+            android:text="Registrarse" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".VerPDFActivity"></activity>
+        <activity android:name=".RegistrarseActivity" />
+        <activity android:name=".IniciaSecionActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ExpandirImagen" />
         <activity android:name=".MainActivity" />
 

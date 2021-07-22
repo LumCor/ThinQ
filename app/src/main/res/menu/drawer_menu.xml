@@ -30,6 +30,11 @@
         android:icon="@drawable/ic_covid"
         android:title="Estadisticas"
         />
+    <item
+        android:id="@+id/btCerrarSecionMenu"
+        android:icon="@drawable/ic_covid"
+        android:title="Cerrar Cesion"
+        />
 
 
 </menu>

@@ -14,11 +14,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import mx.unam.ingenieria.thinq.Fragments.Estadisticas_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
 import mx.unam.ingenieria.thinq.Fragments.Horario_fragment;
+import mx.unam.ingenieria.thinq.Fragments.Libros_fragment;
 import mx.unam.ingenieria.thinq.Fragments.PantallaPrincipal_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Tareas_fragment;
 
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Galeria_fragment galeria_fragment;
     private Estadisticas_fragment estadisticas_fragment;
     private Horario_fragment horario_fragment;
+    private Libros_fragment libros_fragment;
+
+    FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         galeria_fragment=new Galeria_fragment();
         estadisticas_fragment=new Estadisticas_fragment();
         horario_fragment=new Horario_fragment();
+        libros_fragment=new Libros_fragment();
+
+        auth=FirebaseAuth.getInstance();
 
 
         super.onCreate(savedInstanceState);
@@ -98,6 +107,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,horario_fragment);
                 break;
+
+            case R.id.btLibro:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container,libros_fragment);
+                break;
+
+            case R.id.btCerrarSecionMenu:
+                auth.signOut();
+                //Intent i=new Intent(MainActivity.this, Splash.class);
+                //startActivity(i);
+                break;
+
+
 
 
         }
