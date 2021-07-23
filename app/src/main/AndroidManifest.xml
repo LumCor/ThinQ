@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".VerPDFActivity"></activity>
+        <activity android:name=".Activity_CrearHorario"></activity>
+        <activity android:name=".Activity_EditarMateria" />
+        <activity android:name=".VerPDFActivity" />
         <activity android:name=".RegistrarseActivity" />
         <activity android:name=".IniciaSecionActivity" />
         <activity android:name=".LoginActivity" />

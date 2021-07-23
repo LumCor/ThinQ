@@ -17,16 +17,13 @@ import mx.unam.ingenieria.thinq.R;
 public class PantallaPrincipal_fragment extends Fragment {
 
     private Button btnCerrarSecionP;
-    FirebaseAuth auth;
+
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.perfil_fragment,container,false);
-
-        btnCerrarSecionP=view.findViewById(R.id.btnCerrarSecionP);
-        auth=FirebaseAuth.getInstance();
 
 
 

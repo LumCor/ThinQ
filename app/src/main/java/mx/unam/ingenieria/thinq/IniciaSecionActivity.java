@@ -46,6 +46,7 @@ public class IniciaSecionActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Autentificacion exitosa", Toast.LENGTH_SHORT).show();
                             Intent i=new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
+                            finish();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

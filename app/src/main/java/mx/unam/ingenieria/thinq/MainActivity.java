@@ -73,11 +73,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.add(R.id.container, pantallaPrincipal_fragment);
         fragmentTransaction.commit();
 
+
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
+        //Intent intent =getIntent(); //Mos devuelve el intente del splash
+        //boolean usuarioLogin = intent.getBooleanExtra(Splash.USUARIOLOGIN, true); //Para generar la variable
 
         switch (item.getItemId())
         {
@@ -116,8 +120,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.btCerrarSecionMenu:
                 auth.signOut();
-                //Intent i=new Intent(MainActivity.this, Splash.class);
-                //startActivity(i);
+                Intent i=new Intent(MainActivity.this, Splash.class);
+                //usuarioLogin=false;
+                startActivity(i);
+                finish();
                 break;
 
 

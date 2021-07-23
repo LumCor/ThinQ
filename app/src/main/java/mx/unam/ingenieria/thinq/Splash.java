@@ -12,24 +12,31 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Splash extends Activity {
+    //public static final String USUARIOLOGIN ="usuarioLogin";
     FirebaseAuth auth;
+    //boolean usuarioLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         auth=FirebaseAuth.getInstance();
+        //usuarioLogin=false;
+
 
         TimerTask tarea=new TimerTask() {
             @Override
             public void run() {
                 Intent intent;
 
-                if (auth.getCurrentUser()==null){
+                if (auth.getCurrentUser()==null ){ //|| usuarioLogin==false
                     intent = new Intent(Splash.this, LoginActivity.class);
+                    //usuarioLogin=false;
                 }
                 else {
                     intent=new Intent(Splash.this,MainActivity.class);
+                    //intent.putExtra(USUARIOLOGIN,usuarioLogin);
+                    //usuarioLogin=false;
                 }
 
                 startActivity(intent);

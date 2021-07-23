@@ -75,6 +75,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
                                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(i);
+                                        finish();
 
                                         //Si el registro no es exitoso
                                     } else {

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".Activity_CrearHorario">
+
+    <EditText
+        android:id="@+id/editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Asignatura" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:text="Dias:" />
+
+        <RadioButton
+            android:id="@+id/rbtnLu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lun" />
+
+        <RadioButton
+            android:id="@+id/rbtnMa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mar" />
+
+        <RadioButton
+            android:id="@+id/rbtnMi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Mier" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbtnJu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jue" />
+
+        <RadioButton
+            android:id="@+id/rbtnVi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vier" />
+
+        <RadioButton
+            android:id="@+id/rbtnSa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sab" />
+
+        <RadioButton
+            android:id="@+id/rbtnDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvLunes"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Lunes: " />
+
+        <EditText
+            android:id="@+id/txtHoraInLu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinLu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvMartes"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Martes: " />
+
+        <EditText
+            android:id="@+id/txtHoraInMa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinMa"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvMiercoles"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Miercoles:" />
+
+        <EditText
+            android:id="@+id/txtHoraInMi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinMi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutJu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvJueves"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Jueves: " />
+
+        <EditText
+            android:id="@+id/txtHoraInJu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinJu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutVi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvViernes"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Viernes: " />
+
+        <EditText
+            android:id="@+id/txtHoraInVi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinVi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvSabado"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Sabado: " />
+
+        <EditText
+            android:id="@+id/txtHoraInSa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinSa"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtvDomingo"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Domingo: " />
+
+        <EditText
+            android:id="@+id/txtHoraInDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="Ejemplo 12:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:foregroundGravity="top"
+            android:text="  -  " />
+
+        <EditText
+            android:id="@+id/txtHoraFinDo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:ems="10"
+            android:hint="20:00"
+            android:inputType="time" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/editTextContenido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Notas" />
+
+    <Button
+        android:id="@+id/btnEditarMateria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/design_default_color_primary"
+        android:text="Eitar Materia" />
+
+
+</LinearLayout>
