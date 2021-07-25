@@ -13,7 +13,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,11 +27,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +61,9 @@ public class Galeria_fragment extends Fragment {
     private Galeria_Adaptador galeria_adaptador;
     private static final int Permission_toRead_Code=101;
 
+    //subiendo imagen
+    private StorageReference mStorage;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +84,9 @@ public class Galeria_fragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},Permission_toRead_Code);
         else
             cargarImg();
+
+        registerForContextMenu(gridView);//hace el gesto de mantener presionado
+        mStorage= FirebaseStorage.getInstance().getReference();
 
         return view;
     }
@@ -132,10 +147,66 @@ public class Galeria_fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode== RESULT_OK)
         {
+            Uri uri = data.getData();
+            StorageReference filePath = mStorage.child("fotos").child(uri.getLastPathSegment());
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getContext(),"se subio con exito",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
             imageView.setImageBitmap(imgBitmap);
             cargarImg();
         }
     }
+
+
+    //cargar imagen a base de datos
+
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();//vamos a inflar un menu
+        inflater.inflate(R.menu.menu_contextual_images,menu);//el menu que vamos a inflar
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();//indica el elemento seleccionado
+
+        //gridView.getItemAtPosition(info.position);
+        switch (item.getItemId()){
+            case R.id.menContImaSubir:
+                Subir();
+                //Toast.makeText(getContext(),"subiendo archivo",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menContImaEliminar:
+                Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
+                break;
+
+            //agragar otras acciones
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void Subir() {
+
+       Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,1);
+
+
+
+    }
+
+
+
 }
 
