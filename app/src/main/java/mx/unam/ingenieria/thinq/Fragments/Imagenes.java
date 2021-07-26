@@ -23,7 +23,6 @@ public class Imagenes {
         //Uri uri;
         ArrayList<String> AllImages=new ArrayList<>();
         String AbsoultePathOfImage = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() ;
-
         File file = new File(AbsoultePathOfImage);
         File[] files = file.listFiles();
         ArrayList<String> imagePaths = new ArrayList<String>();

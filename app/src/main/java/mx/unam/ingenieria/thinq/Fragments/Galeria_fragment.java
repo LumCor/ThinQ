@@ -103,7 +103,8 @@ public class Galeria_fragment extends Fragment {
         }
     }
 
-    private void cargarImg()  {
+    private void cargarImg()
+    {
         List<String> imagenes;
         List<Bitmap> bits=new ArrayList<Bitmap> ();
         imagenes=Imagenes.Imagenes(getContext());
