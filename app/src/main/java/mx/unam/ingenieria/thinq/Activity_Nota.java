@@ -1,4 +1,8 @@
 package mx.unam.ingenieria.thinq;
 
-public class Activity_Nota {
+import android.app.ActionBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Activity_Nota extends AppCompatActivity {
 }

@@ -3,5 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Notas_fragment">
-
+    <item
+        android:id="@+id/btCrearNota"
+        android:title="Crear nota"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/btEditarNota"
+        android:title="Editar nota"
+        android:orderInCategory="2"/>
+    <item
+        android:id="@+id/btEliminarNota"
+        android:title="Eliminar nota"
+        android:orderInCategory="3"/>
+    <item
+        android:id="@+id/btEliminarTodas"
+        android:title="Eliminar todas las notas"
+        android:orderInCategory="4"/>
 </menu>
