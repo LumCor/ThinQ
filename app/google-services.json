@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "356739420479",
+    "project_id": "thinq-60c76",
+    "storage_bucket": "thinq-60c76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356739420479:android:206500dbb864c9fbd7c38a",
+        "android_client_info": {
+          "package_name": "mx.unam.ingenieria.thinq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356739420479-7pe1lsgr290b8b4j9j9ljoossr2lijb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpwujTuJPPzs0B79QUy5MST3tnoyjvIdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356739420479-7pe1lsgr290b8b4j9j9ljoossr2lijb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
