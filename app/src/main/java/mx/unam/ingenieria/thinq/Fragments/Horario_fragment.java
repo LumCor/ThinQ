@@ -52,7 +52,7 @@ public class Horario_fragment extends Fragment {
 
         btnAgregarMateriaH.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //xdxxdHolaaa
                 startActivity(new Intent(view.getContext(), Activity_CrearHorario.class));
 
             }
