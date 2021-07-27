@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menContImaSubir"
+        android:title="Subir"
+        android:orderInCategory="101"/>
+    <item android:id="@+id/menContImaEliminar"
+        android:title="Eliminar"
+        android:orderInCategory="102"/>
+
+
+</menu>

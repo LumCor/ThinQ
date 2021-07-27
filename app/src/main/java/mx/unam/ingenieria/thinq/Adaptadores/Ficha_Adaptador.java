@@ -5,7 +5,6 @@ public class Ficha_Adaptador {
     private int duracion;
     private  long fecha;
 
-
     public Ficha_Adaptador(String name, int duracion,long fecha) {
         this.name = name;
         this.duracion = duracion;
