@@ -148,14 +148,16 @@ public class Galeria_fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode== RESULT_OK)
         {
+            /*
             Uri uri = data.getData();
+
             StorageReference filePath = mStorage.child("fotos").child(uri.getLastPathSegment());
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(getContext(),"se subio con exito",Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
 
 
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
