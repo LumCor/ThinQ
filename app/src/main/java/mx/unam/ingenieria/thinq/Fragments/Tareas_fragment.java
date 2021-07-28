@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import mx.unam.ingenieria.thinq.R;
-import mx.unam.ingenieria.thinq.TPendiente;
-import mx.unam.ingenieria.thinq.TPendiente_Adaptador;
+import mx.unam.ingenieria.thinq.Adaptadores.TPendiente;
+import mx.unam.ingenieria.thinq.Adaptadores.TPendiente_Adaptador;
 
 public class Tareas_fragment extends Fragment {
 

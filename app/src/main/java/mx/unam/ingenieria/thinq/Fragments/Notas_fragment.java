@@ -34,30 +34,31 @@ public class Notas_fragment  extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
-        txtTitulo=view.findViewById(R.id.txtTitulo);
-        txtContenido=view.findViewById(R.id.txtNota);
         setHasOptionsMenu(true);
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_notas,menu);
         menu.add(1,ADD,0,"Crear nota");
         menu.add(2,DELETE,0,"Borrar todas las notas");
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
         int id=item.getItemId();
         switch (id)
         {
-            case 1:
+            case ADD:
                 Intent intent= new Intent(getContext(), Activity_Nota.class);
                 intent.putExtra("llave","add");
                 startActivity(intent);
                return true;
-            case 2:
+            case DELETE:
+                break;
 
         }
         return super.onOptionsItemSelected(item);

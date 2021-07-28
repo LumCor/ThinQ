@@ -1,4 +1,4 @@
-package mx.unam.ingenieria.thinq;
+package mx.unam.ingenieria.thinq.Adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import mx.unam.ingenieria.thinq.R;
 
 public class TPendiente_Adaptador  extends RecyclerView.Adapter<TPendiente_Adaptador.ViewHolder> {
 

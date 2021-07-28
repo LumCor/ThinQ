@@ -1,4 +1,4 @@
-package mx.unam.ingenieria.thinq;
+package mx.unam.ingenieria.thinq.Adaptadores;
 
 public class TPendiente {
     String materia;
