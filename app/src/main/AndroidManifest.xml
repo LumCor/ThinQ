@@ -29,6 +29,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ExpandirImagen" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Activity_Nota"/>
 
         <meta-data
             android:name="com.google.android.actions"
