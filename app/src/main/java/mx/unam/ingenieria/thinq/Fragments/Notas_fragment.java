@@ -16,10 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.unam.ingenieria.thinq.Activity_Nota;
+import mx.unam.ingenieria.thinq.Adaptadores.Ficha_Nota;
 import mx.unam.ingenieria.thinq.Adaptadores.Notas_Adaptador;
+import mx.unam.ingenieria.thinq.Adaptadores.TPendiente;
 import mx.unam.ingenieria.thinq.R;
 
 public class Notas_fragment  extends Fragment
@@ -27,16 +30,21 @@ public class Notas_fragment  extends Fragment
     ListView lista;
     EditText txtTitulo,txtContenido;
     Notas_Adaptador notas_adaptador;
-    List<String> item=null;
+    ArrayList<Ficha_Nota> notas=new ArrayList<>();
     private static final int ADD=Menu.FIRST,DELETE=Menu.FIRST+1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
+        //cargarNotas();
+        notas.add(new Ficha_Nota("Cita Oxxo","9:30, enfrente de la veterinaria"));
+        lista.setAdapter(new Notas_Adaptador(getContext(),notas));
         setHasOptionsMenu(true);
         return view;
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -55,12 +63,14 @@ public class Notas_fragment  extends Fragment
             case ADD:
                 Intent intent= new Intent(getContext(), Activity_Nota.class);
                 intent.putExtra("llave","add");
+                intent.putExtra("notas",notas);
                 startActivity(intent);
                return true;
             case DELETE:
+                notas.clear();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -12,10 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import mx.unam.ingenieria.thinq.Adaptadores.Ficha_Nota;
+
 public class Activity_Nota extends AppCompatActivity {
     Button Add;
     EditText txtTitulo,txtContenido;
     String getTitle,getContent,caso;
+    ArrayList<Ficha_Nota> notas;
     private static final int SALIR= Menu.FIRST;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,9 +67,5 @@ public class Activity_Nota extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-    private void nuevaNota()
-    {
-
     }
 }
