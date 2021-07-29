@@ -22,6 +22,7 @@ import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
 import mx.unam.ingenieria.thinq.Fragments.Horario_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Libros_fragment;
 import mx.unam.ingenieria.thinq.Fragments.PantallaPrincipal_fragment;
+import mx.unam.ingenieria.thinq.Fragments.Practica1_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Tareas_fragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Estadisticas_fragment estadisticas_fragment;
     private Horario_fragment horario_fragment;
     private Libros_fragment libros_fragment;
+    private Practica1_fragment practica1_fragment;
 
     FirebaseAuth auth;
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         estadisticas_fragment=new Estadisticas_fragment();
         horario_fragment=new Horario_fragment();
         libros_fragment=new Libros_fragment();
+        practica1_fragment= new Practica1_fragment();
 
         auth=FirebaseAuth.getInstance();
 
@@ -124,6 +127,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //usuarioLogin=false;
                 startActivity(i);
                 finish();
+                break;
+            case R.id.Practica1:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container,practica1_fragment);
                 break;
 
 

@@ -35,6 +35,10 @@
         android:icon="@drawable/ic_covid"
         android:title="Cerrar Cesion"
         />
+    <item
+        android:id="@+id/Practica1"
+        android:title="Práctica 1"
+        />
 
 
 </menu>
