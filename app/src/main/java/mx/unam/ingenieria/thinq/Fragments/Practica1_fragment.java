@@ -2,6 +2,8 @@ package mx.unam.ingenieria.thinq.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,11 @@ public class Practica1_fragment extends Fragment
     TextView txtRes,txtRes2,txt1;
     EditText editText;
     Button bt;
+    long suma;
+    double tiempoini, tiempofin;
+    private Handler manejador= new Handler(Looper.myLooper());
+
+
     private long x=1;
     @Nullable
     @Override
@@ -37,14 +44,63 @@ public class Practica1_fragment extends Fragment
             @Override
             public void onClick(View v)
             {
+                /*
                 try {
                     calculo();
                     calculo2();
                 } catch (InterruptedException e) { e.printStackTrace(); }
+
+                 */
+
+                tiempoini=System.nanoTime();
+                //calculo1(); Actividad 1
+                //calculo2(); Actividad 2
+                calculo3(); //Actividad 3
+                tiempofin=(System.nanoTime()-tiempoini)/1000000000;
+
+                txtRes2.setText(toString().valueOf(tiempofin));
             }
         });
         return view;
     }
+
+    private void calculo1(){
+
+
+
+        for(long i=0; i<=1000000000; i++){
+            suma+=i;
+        }
+        txtRes.setText(toString().valueOf(suma));
+
+    }
+
+    private void calculo2()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+
+                for (long i = 0; i <= 100000000; i++)
+                {
+                    suma += i;
+                }
+
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        txtRes.setText(String.valueOf(suma));
+                        suma=0;
+                    }
+                });
+            }
+        }).start();
+
+    }
+
     private void calculo()
     {
         new Thread(new Runnable() {
@@ -75,15 +131,27 @@ public class Practica1_fragment extends Fragment
 
     }
 
-    private void calculo2() throws InterruptedException
-    {
 
-        /*
-        for(long i=0;i<=10;i++)
-        {
-            txtCont.setText(String.valueOf(i));
-        }
-        */
+    private void calculo3() {
+        manejador.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for(long i=0; i <= 1_000_000_000;i++  )
+                {
+                    suma+=i;
 
+                }
+                //Log.d("Resultado","Total: " +suma);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtRes.setText( String.valueOf( suma));
+                    }
+                });
+
+
+            }
+        },6000);
     }
 }
