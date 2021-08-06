@@ -49,7 +49,7 @@ dependencies {
 
     //Agregado por Axel
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2' //API para ver los archivos PDF
     implementation 'com.google.firebase:firebase-firestore:17.1.4'
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.android.support:multidex:1.0.3'

@@ -33,7 +33,7 @@
     <item
         android:id="@+id/btCerrarSecionMenu"
         android:icon="@drawable/ic_covid"
-        android:title="Cerrar Cesion"
+        android:title="Cerrar Sesion"
         />
     <item
         android:id="@+id/Practica1"
