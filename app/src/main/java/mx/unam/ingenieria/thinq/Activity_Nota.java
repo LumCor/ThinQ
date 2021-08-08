@@ -3,11 +3,14 @@ package mx.unam.ingenieria.thinq;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import mx.unam.ingenieria.thinq.Adaptadores.Ficha_Nota;
+import mx.unam.ingenieria.thinq.Fragments.Notas_fragment;
 
 public class Activity_Nota extends AppCompatActivity {
     Button Add;
@@ -46,6 +50,13 @@ public class Activity_Nota extends AppCompatActivity {
                 txtContenido.setText(getContent);
                 break;
         }
+        Add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                NuevaNota();
+            }
+        });
     }
 
     @Override
@@ -69,5 +80,29 @@ public class Activity_Nota extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void NuevaNota()
+    {
+        Log.d("ojo",txtTitulo.getText().toString());
+        Log.d("ojo",txtContenido.getText().toString());
+        if(txtTitulo.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Inserte un título", Toast.LENGTH_SHORT).show();
+            txtTitulo.requestFocus();
+
+        }
+        else if(txtContenido.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Inserte una descripción", Toast.LENGTH_SHORT).show();
+            txtContenido.requestFocus();
+        }
+        else
+        {
+            Intent intent= new Intent(this, Notas_fragment.class);
+            intent.putExtra("titulo",txtTitulo.getText().toString());
+            intent.putExtra("contenido",txtContenido.getText().toString());
+            setResult(RESULT_OK,intent);
+            finish();
+        }
     }
 }

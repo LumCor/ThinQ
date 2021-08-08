@@ -31,26 +31,38 @@ public class Notas_fragment  extends Fragment
     EditText txtTitulo,txtContenido;
     Notas_Adaptador notas_adaptador;
     ArrayList<Ficha_Nota> notas=new ArrayList<>();
+
     private static final int ADD=Menu.FIRST,DELETE=Menu.FIRST+1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
-        //cargarNotas();
         notas.add(new Ficha_Nota("Cita Oxxo","9:30, enfrente de la veterinaria"));
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
         setHasOptionsMenu(true);
         return view;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==1)
+        {
+            if(resultCode==Activity.RESULT_OK)
+            {
+                notas.add(new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
+                lista.setAdapter(new Notas_Adaptador(getContext(),notas));
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_notas,menu);
         menu.add(1,ADD,0,"Crear nota");
         menu.add(2,DELETE,0,"Borrar todas las notas");
+
         super.onCreateOptionsMenu(menu,inflater);
     }
 
@@ -63,7 +75,7 @@ public class Notas_fragment  extends Fragment
             case ADD:
                 Intent intent= new Intent(getContext(), Activity_Nota.class);
                 intent.putExtra("llave","add");
-                startActivity(intent);
+                startActivityForResult(intent,1);
                return true;
             case DELETE:
                 notas.clear();
