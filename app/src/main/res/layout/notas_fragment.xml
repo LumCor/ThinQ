@@ -8,14 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvLista"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Bloc de notas:" />
+        android:orientation="vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="80sp">
 
         <ListView
             android:id="@+id/Lista_notas"

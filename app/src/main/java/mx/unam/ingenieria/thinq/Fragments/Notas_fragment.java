@@ -63,11 +63,11 @@ public class Notas_fragment  extends Fragment
             case ADD:
                 Intent intent= new Intent(getContext(), Activity_Nota.class);
                 intent.putExtra("llave","add");
-                intent.putExtra("notas",notas);
                 startActivity(intent);
                return true;
             case DELETE:
                 notas.clear();
+                lista.setAdapter(new Notas_Adaptador(getContext(),notas));
                 break;
         }
         return super.onOptionsItemSelected(item);

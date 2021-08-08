@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,6 @@ public class Activity_Nota extends AppCompatActivity {
     Button Add;
     EditText txtTitulo,txtContenido;
     String getTitle,getContent,caso;
-    ArrayList<Ficha_Nota> notas;
     private static final int SALIR= Menu.FIRST;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,12 +49,14 @@ public class Activity_Nota extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notas,menu);
-        super.onCreateOptionsMenu(menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_notas,menu);
         menu.add(1,SALIR,0,"Salir");
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
