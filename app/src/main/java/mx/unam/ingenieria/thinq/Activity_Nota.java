@@ -25,6 +25,7 @@ public class Activity_Nota extends AppCompatActivity {
     Button Add;
     EditText txtTitulo,txtContenido;
     String getTitle,getContent,caso;
+    int pos;
     private static final int SALIR= Menu.FIRST;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class Activity_Nota extends AppCompatActivity {
                 Add.setText("Crear nota");
                 break;
             case "edit":
+                pos=bundle.getInt("posicion");
                 Add.setText("Actualizar");
                 txtTitulo.setText(getTitle);
                 txtContenido.setText(getContent);
@@ -85,13 +87,13 @@ public class Activity_Nota extends AppCompatActivity {
     {
         Log.d("ojo",txtTitulo.getText().toString());
         Log.d("ojo",txtContenido.getText().toString());
-        if(txtTitulo.getText().toString().equals(""))
+        if(txtTitulo.getText().toString().equals("") || txtContenido.getText().toString().equals(" "))
         {
             Toast.makeText(this, "Inserte un título", Toast.LENGTH_SHORT).show();
             txtTitulo.requestFocus();
 
         }
-        else if(txtContenido.getText().toString().equals(""))
+        else if(txtContenido.getText().toString().equals("") || txtContenido.getText().toString().equals(" "))
         {
             Toast.makeText(this, "Inserte una descripción", Toast.LENGTH_SHORT).show();
             txtContenido.requestFocus();
@@ -101,6 +103,7 @@ public class Activity_Nota extends AppCompatActivity {
             Intent intent= new Intent(this, Notas_fragment.class);
             intent.putExtra("titulo",txtTitulo.getText().toString());
             intent.putExtra("contenido",txtContenido.getText().toString());
+            intent.putExtra("posicion",pos);
             setResult(RESULT_OK,intent);
             finish();
         }

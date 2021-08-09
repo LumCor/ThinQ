@@ -2,6 +2,7 @@ package mx.unam.ingenieria.thinq.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -28,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -53,24 +56,49 @@ public class Notas_fragment  extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
-        //CargarNotas();
+        CargarNotas();
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Intent intent= new Intent(getContext(), Activity_Nota.class);
+                intent.putExtra("llave","edit");
+                intent.putExtra("titulo",notas.get(position).getTitle());
+                intent.putExtra("contenido",notas.get(position).getTContent());
+                intent.putExtra("posicion",position);
+                Log.d("Ojo",String.valueOf(position));
+                startActivityForResult(intent,2);
+            }
+        });
         setHasOptionsMenu(true);
         return view;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==1)
-        {
-            if(resultCode==Activity.RESULT_OK)
-            {
-                notas.add(new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
-                GuardarNotas();
-            }
-        }
+        switch (requestCode)
+                {
+                    case 1:
+                        if(resultCode==Activity.RESULT_OK)
+                        {
+                            notas.add(new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
+                            GuardarNotas();
+                        }
+                        break;
+                    case 2:
+                        if(resultCode==Activity.RESULT_OK)
+                        {
+                            Log.d("Ojo",String.valueOf(data.getExtras().getInt("posicion")));
+                            notas.set(data.getExtras().getInt("posicion"),new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
+                            GuardarNotas();
+                        }
+                        break;
+                }
         super.onActivityResult(requestCode, resultCode, data);
-    }
+        }
+
+
 
     private void CargarNotas()
     {
@@ -78,14 +106,26 @@ public class Notas_fragment  extends Fragment
         {
         String aux=String.valueOf(getContext().getExternalFilesDir(Environment.DIRECTORY_DCIM))+"/Notas.txt";
         File directorio= new File(aux);
-        BufferedReader reader=new BufferedReader((new InputStreamReader(new FileInputStream(directorio))));
-        int i=Integer.parseInt(reader.readLine());
-        reader.close();
-        Log.d("Ojo",String.valueOf(i));
+        if(directorio.exists())
+        {
+            BufferedReader reader=new BufferedReader((new InputStreamReader(new FileInputStream(directorio))));
+            int j=Integer.parseInt(reader.readLine());
+            for (int i=0;i<j;i++)
+            {
+                String aux2=new String(reader.readLine());
+                int k=aux2.indexOf(",");
+                notas.add(new Ficha_Nota(aux2.substring(0,k),aux2.substring(k+1)));
+                Log.d("Ojo",aux2.substring(0,k)+" "+aux2.substring(k+1));
+            }
+            lista.setAdapter(new Notas_Adaptador(getContext(),notas));
+            reader.close();
+
+        }
+
         } catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) {
             e.printStackTrace();
         }
-        //notas.add(new Ficha_Nota("Cita Oxxo","9:30, enfrente de la veterinaria"));
+
     }
     private void GuardarNotas()
     {
@@ -101,22 +141,22 @@ public class Notas_fragment  extends Fragment
             directorio.mkdir();
         try
         {
-            File file = new File(directorio, "Notas" + ".txt");
+            File file = new File(directorio, "Notas.txt");
             if(!file.exists())
                 file.createNewFile();
             else
                 {
-                file.delete();
-                file.createNewFile();
+                    file.delete();
+                    file.createNewFile();
             }
             Log.d("Ojo",String.valueOf(file.getAbsolutePath()));
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},225);
         else
             {
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput("Notas.txt", getContext().MODE_PRIVATE));
-                outputStreamWriter.write(datos);
-                outputStreamWriter.close();
+                FileOutputStream writer=new FileOutputStream(file);
+                writer.write(datos.getBytes());
+                writer.close();
             }
         }
         catch (IOException e) { e.printStackTrace(); }
