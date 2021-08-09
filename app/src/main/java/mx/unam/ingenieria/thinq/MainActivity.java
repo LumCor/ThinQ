@@ -9,8 +9,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Horario_fragment horario_fragment;
     private Libros_fragment libros_fragment;
     private Practica1_fragment practica1_fragment;
+
+    private ProgressDialog TempDialog; //Para el tiempo de espera
+    private CountDownTimer countDownTimer;
+    private int cont =0;
 
     FirebaseAuth auth;
 
@@ -128,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
                 finish();
                 break;
+
             case R.id.Practica1:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
