@@ -96,7 +96,8 @@ public class Estadisticas_fragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            Toast.makeText(getContext(),"AHI VA"+bitmap.toString(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(),"Uri "+directorio.toString(),Toast.LENGTH_SHORT).show();
+            Log.d("Maldito URI: ",":"+directorio.toString());
 
             directorior.putFile(directorio).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override

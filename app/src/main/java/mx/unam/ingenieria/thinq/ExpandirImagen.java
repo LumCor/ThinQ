@@ -28,6 +28,7 @@ public class ExpandirImagen extends AppCompatActivity {
         Intent intent=getIntent();
         int posicion=intent.getExtras().getInt("Fotos_ThinQ");
         imagenes=Imagenes.Imagenes(this);
+
         for(int i=0;i<imagenes.size();i++)
         {
             bits.add(BitmapFactory.decodeFile(imagenes.get(i)));

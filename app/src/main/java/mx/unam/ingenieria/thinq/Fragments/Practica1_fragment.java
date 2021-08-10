@@ -23,13 +23,14 @@ public class Practica1_fragment extends Fragment
 {
     TextView txtRes,txtRes2,txt1;
     EditText editText;
+    double inicioV,finalV;
     Button bt;
-    long suma;
-    double tiempoini, tiempofin;
-    private Handler manejador= new Handler(Looper.myLooper());
 
+    double tiempoini, tiempofin;
 
     private long x=1;
+    private Handler manejador= new Handler(Looper.myLooper());
+    long suma=0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -40,15 +41,17 @@ public class Practica1_fragment extends Fragment
         txt1=view.findViewById(R.id.editTXT2);
         editText=view.findViewById(R.id.editTXT);
         bt=view.findViewById(R.id.btCalcular);
+
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                 /*
-                try {
-                    calculo();
-                    calculo2();
-                } catch (InterruptedException e) { e.printStackTrace(); }
+               //calculo2();
+               // calculo3();
+
+
+
 
                  */
 
@@ -64,15 +67,13 @@ public class Practica1_fragment extends Fragment
         return view;
     }
 
-    private void calculo1(){
+    private void calculo1() {
 
 
-
-        for(long i=0; i<=1000000000; i++){
-            suma+=i;
+        for (long i = 0; i <= 1000000000; i++) {
+            suma += i;
         }
         txtRes.setText(toString().valueOf(suma));
-
     }
 
     private void calculo2()
@@ -101,35 +102,10 @@ public class Practica1_fragment extends Fragment
 
     }
 
-    private void calculo()
-    {
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                String K= editText.getText().toString();
-                int k=Integer.parseInt(K);
-                txt1.setText(String.valueOf(k+1));
-                for (long j=0;j<k;j++)
-                {
-                    for (long i = 0; i <= 100000000; i++)
-                    {
-                        x += i;
-                    }
-                }
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run()
-                    {
-                        txtRes.setText(String.valueOf(x));
-                        x=0;
-                    }
-                });
-            }
-        }).start();
 
-    }
+
+
 
 
     private void calculo3() {

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -34,7 +35,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -59,6 +62,11 @@ public class Galeria_fragment extends Fragment {
     private String ruta;
     private GridView gridView;
     private Galeria_Adaptador galeria_adaptador;
+    List<String> imagenesList;//lista donde se almacenaran las imagenes
+    List<Bitmap> bitmapList;//lista donde se anadiran las imagenes decodificadas
+    List<String> imagenes;
+    List<Bitmap> bits=new ArrayList<Bitmap> ();
+
     private static final int Permission_toRead_Code=101;
 
     //subiendo imagen
@@ -105,8 +113,7 @@ public class Galeria_fragment extends Fragment {
 
     private void cargarImg()
     {
-        List<String> imagenes;
-        List<Bitmap> bits=new ArrayList<Bitmap> ();
+
         imagenes=Imagenes.Imagenes(getContext());
         for(int i=0;i<imagenes.size();i++)
                 {
@@ -184,11 +191,12 @@ public class Galeria_fragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();//indica el elemento seleccionado
 
-        //gridView.getItemAtPosition(info.position);
+
         switch (item.getItemId()){
             case R.id.menContImaSubir:
-                Subir();
+                Subir(info.position);
                 //Toast.makeText(getContext(),"subiendo archivo",Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.menContImaEliminar:
                 Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
@@ -199,11 +207,22 @@ public class Galeria_fragment extends Fragment {
         return super.onContextItemSelected(item);
     }
 
-    private void Subir() {
+    private void Subir(int poss) {
 
-       Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,1);
+        Uri uri = FileProvider.getUriForFile(getContext(),"mx.unam.ingenieria.thinq.fileprovider",new File(imagenes.get(poss)));
+
+        final StorageReference filePath=mStorage.child("MisFotos").child(imagenes.get(poss));
+
+        Log.d("path",":"+imagenes.get(poss));
+        Log.d("Bendito URI: ",":"+uri.toString());
+        filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getContext(),"Si se pudo subir el archivo en el storage",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
 
