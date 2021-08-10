@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,10 +32,12 @@ public class Splash extends Activity {
                 Intent intent;
 
                 if (auth.getCurrentUser()==null ){ //|| usuarioLogin==false
+
                     intent = new Intent(Splash.this, LoginActivity.class);
                     //usuarioLogin=false;
                 }
                 else {
+
                     intent=new Intent(Splash.this,MainActivity.class);
                     //intent.putExtra(USUARIOLOGIN,usuarioLogin);
                     //usuarioLogin=false;
@@ -44,6 +48,6 @@ public class Splash extends Activity {
             }
         };
         Timer timer= new Timer();
-        timer.schedule(tarea,3500);
+        timer.schedule(tarea,3000);
     }
 }

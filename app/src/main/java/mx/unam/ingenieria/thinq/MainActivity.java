@@ -11,12 +11,23 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Future;
 
 import mx.unam.ingenieria.thinq.Fragments.Estadisticas_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Libros_fragment libros_fragment;
     private Practica1_fragment practica1_fragment;
 
-    private ProgressDialog TempDialog; //Para el tiempo de espera
+    private ProgressDialog TempDialog;
     private CountDownTimer countDownTimer;
     private int cont =0;
 
@@ -127,25 +138,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.container,libros_fragment);
                 break;
 
-            case R.id.btCerrarSecionMenu:
-                auth.signOut();
-                Intent i=new Intent(MainActivity.this, Splash.class);
-                //usuarioLogin=false;
-                startActivity(i);
-                finish();
-                break;
-
             case R.id.Practica1:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,practica1_fragment);
                 break;
 
+            case R.id.btCerrarSecionMenu:
 
+                Intent i = new Intent(MainActivity.this, Splash.class);
 
+                auth.signOut();
+                tiempoEspera();
+                startActivity(i);
+                finish();
+
+                //System.exit(0);
+
+                break;
 
         }
         fragmentTransaction.commit();
         return false;
     }
+
+
+    public void tiempoEspera() {
+
+
+        TempDialog = new ProgressDialog(this);
+        TempDialog.setMessage("Espere un momento");
+        TempDialog.setCancelable(false);
+        TempDialog.setProgress(cont);
+        TempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        TempDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+        TempDialog.show();
+
+        countDownTimer = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                TempDialog.setMessage("Por favor Espere");
+            }
+
+            @Override
+            public void onFinish() {
+                TempDialog.dismiss();
+
+
+            }
+        };
+    }
+
 }
+

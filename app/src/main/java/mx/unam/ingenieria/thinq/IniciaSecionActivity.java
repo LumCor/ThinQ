@@ -44,6 +44,7 @@ public class IniciaSecionActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Autentificacion exitosa", Toast.LENGTH_SHORT).show();
+
                             Intent i=new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                             finish();
