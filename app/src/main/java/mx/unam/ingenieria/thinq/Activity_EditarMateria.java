@@ -2,6 +2,7 @@ package mx.unam.ingenieria.thinq;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -325,6 +326,10 @@ public class Activity_EditarMateria extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Los datos se actualizaron correctamente", Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             });
 

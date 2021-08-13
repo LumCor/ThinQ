@@ -350,6 +350,7 @@ public class Activity_CrearHorario extends AppCompatActivity {
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
 
 
         }
