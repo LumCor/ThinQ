@@ -15,6 +15,12 @@
         android:layout_height="wrap_content"
         android:hint="Asignatura" />
 
+    <EditText
+        android:id="@+id/editTextGrupo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Grupo" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

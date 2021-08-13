@@ -24,6 +24,7 @@ public class Activity_EditarMateria extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
 
     EditText txtTitulo;
+    EditText txtGrupo;
     EditText txtContenido;
     Button btnEditar;
 
@@ -61,6 +62,7 @@ public class Activity_EditarMateria extends AppCompatActivity {
 
 
         txtTitulo=findViewById(R.id.editTextTitulo);
+        txtGrupo=findViewById(R.id.editTextGrupo);
         txtContenido=findViewById(R.id.editTextContenido);
         btnEditar=findViewById(R.id.btnEditarMateria);
 
@@ -244,9 +246,14 @@ public class Activity_EditarMateria extends AppCompatActivity {
     private  void actualizarDatos(){
         String asignatura = txtTitulo.getText().toString();
         String notas = txtContenido.getText().toString();
+        String grupo = txtGrupo.getText().toString();
+
+
         String [][] horario =new String[7][2];
         String [] dias = new String[7];
         Boolean id=true, id2=false;
+        int grupov;
+        grupov=Integer.parseInt(grupo);
 
 
         for (int j=0; j<7; j++){
@@ -266,6 +273,7 @@ public class Activity_EditarMateria extends AppCompatActivity {
             Map<String, Object> map = new HashMap<>();
             map.put("Asignatura", asignatura);
             //map.put("Dias", "Selecciona dias");
+            map.put("Grupo", grupov);
             map.put("Notas", notas);
 
             for (int j = 0; j < 7; j++) {

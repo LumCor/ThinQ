@@ -27,6 +27,15 @@
                 />
 
             <TextView
+                android:id="@+id/txtvGrupo"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="Grupo"
+                android:textSize="20sp"
+                />
+
+            <TextView
                 android:id="@+id/txtvDias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

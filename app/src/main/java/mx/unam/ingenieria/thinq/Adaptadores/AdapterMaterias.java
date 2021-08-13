@@ -47,6 +47,7 @@ public class AdapterMaterias extends FirestoreRecyclerAdapter<Materias, AdapterM
         final String id = materiaDocument.getId(); //idMateria sera donde se encuentre el documento solicitado
 
         holder.txtvmateria.setText(materia.getAsignatura());
+        holder.txtGrupo.setText(String.valueOf(materia.getGrupo()));
         holder.txtvdia.setText(materia.getDias());
         holder.txtvnota.setText(materia.getNotas());
         holder.btneditar.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +87,7 @@ public class AdapterMaterias extends FirestoreRecyclerAdapter<Materias, AdapterM
         TextView txtvmateria;
         TextView txtvdia;
         TextView txtvnota;
+        TextView txtGrupo;
         Button btneditar;
         Button btnEliminarMateria;
 
@@ -93,6 +95,7 @@ public class AdapterMaterias extends FirestoreRecyclerAdapter<Materias, AdapterM
             super(itemView);
 
             txtvmateria=itemView.findViewById(R.id.txtvMaterias);
+            txtGrupo=itemView.findViewById(R.id.txtvGrupo);
             txtvdia=itemView.findViewById(R.id.txtvDias);
             txtvnota=itemView.findViewById(R.id.txtvNotas);
             btneditar=itemView.findViewById(R.id.btnEditar);

@@ -4,6 +4,8 @@ public class Materias {
     private String Asignatura;
     private String Dias;
     private String Notas;
+    private int Grupo;
+
 
     public Materias(){
 
@@ -38,6 +40,15 @@ public class Materias {
     public void setNotas(String notas) {
         Notas = notas;
     }
+
+    public int getGrupo() {
+        return Grupo;
+    }
+
+    public void setGrupo(int grupo) {
+        Grupo = grupo;
+    }
+
 }
 
 
