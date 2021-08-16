@@ -44,7 +44,7 @@ public class TPendiente_Adaptador  extends FirestoreRecyclerAdapter<TPendiente, 
         ImageView imgvDificultad;
         TextView txtvMateria, txtvDescripcion;
         ImageButton imgbtnEditarTarea,imgbtnBorrarTarea;
-        CardView cardView;//########################################
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,7 +53,7 @@ public class TPendiente_Adaptador  extends FirestoreRecyclerAdapter<TPendiente, 
             txtvDescripcion = itemView.findViewById(R.id.txtvDescripcion);
             imgbtnEditarTarea = itemView.findViewById(R.id.imgbtnEditarTarea);
             imgbtnBorrarTarea = itemView.findViewById(R.id.imgbtnBorrarTarea);
-            cardView = itemView.findViewById(R.id.cardView);//#####################3
+            cardView = itemView.findViewById(R.id.cardView);
 
         }
     }
