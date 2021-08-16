@@ -124,11 +124,11 @@ public class TPendiente_Adaptador  extends FirestoreRecyclerAdapter<TPendiente, 
         }
         else if(tarea.getDificultad().equals("masomenos")){
             holder.imgvDificultad.setImageResource(R.drawable.masomenos);
-            holder.cardView.setCardBackgroundColor(0xffaaad4d);
+            holder.cardView.setCardBackgroundColor(0xffc8cc2e);
         }
         else if(tarea.getDificultad().equals("dificil")){
             holder.imgvDificultad.setImageResource(R.drawable.dificil);
-            holder.cardView.setCardBackgroundColor(0xFFad504d);
+            holder.cardView.setCardBackgroundColor(0xffcc322e);
         }
 
     }
