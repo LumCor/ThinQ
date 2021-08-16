@@ -54,10 +54,17 @@ public class ListaAudio_Adaptador extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         view=LayoutInflater.from(context).inflate(R.layout.ficha_audio,null);
+
         Ficha_Adaptador ficha=(Ficha_Adaptador)getItem(position);
+        /**
+         * Recepción de los datos del archivo de audio
+         */
         TextView nombre=view.findViewById(R.id.name_audio),
                 duracion=view.findViewById(R.id.duracion_audio),
                 fecha=view.findViewById(R.id.date_audio);
+        /**
+         * se guarda el nombre en el item de la lista
+         */
         nombre.setText(ficha.getName());
         float tiempo= ficha.getDuracion()/1000;
         int min, seg, mseg;
@@ -77,6 +84,10 @@ public class ListaAudio_Adaptador extends BaseAdapter {
             cadena=cadena+"0"+String.valueOf(mseg);
         else
             cadena=cadena+String.valueOf(mseg);
+        /**
+         * Tras obtener la duración y hacer operaciones para transformar el tiempo en minutos y segundos
+         * se guarda su duración el item de la lista
+         */
         duracion.setText(cadena);
         Date date=new Date(ficha.getFecha());
         Calendar calendar=new GregorianCalendar();
@@ -90,9 +101,17 @@ public class ListaAudio_Adaptador extends BaseAdapter {
         else
             cadena=cadena+String.valueOf(calendar.get(Calendar.MONTH))+"/";
         cadena=cadena+String.valueOf(calendar.get(Calendar.YEAR));
+        /**
+         * Tras obtener la fecha en la cuál fue creado el archivo de audio, se transforma en un formato
+         * días/mes/año y se guarda en el item de la lista
+         */
         fecha.setText(cadena);
         final Boolean[] repro = {false};
         ImageButton boton=view.findViewById(R.id.btFicha);
+        /**
+         * Se le coloca un botón al item de la lista, dicho botón al ser presionado permite reproducir
+         * el archivo de audio y detenerlo si se requiere
+         */
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

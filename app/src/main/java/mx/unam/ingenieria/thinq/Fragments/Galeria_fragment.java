@@ -103,6 +103,14 @@ public class Galeria_fragment extends Fragment {
         return view;
     }
 
+    /**
+     * El siguiente código permite recuperar las imagenes guardadas del almacenamiento específico de
+     * la aplicación si y solo si se tienen los permisos de acceso al almacenamiento.
+     * De lo contrario no se podrá interactuar con la cámara ni la galería
+     * @param requestCode Código que concede el permiso de lectura del almacenamiento
+     * @param permissions  Código de permiso a comparar si se concedio el acceso
+     * @param grantResults Permisión concedida
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -115,6 +123,10 @@ public class Galeria_fragment extends Fragment {
         }
     }
 
+    /**
+     * El siguiente código permite obtener un arreglo de los bits de las imágenes guardadas del dispositivo
+     * de tal manera que dichos bits se manden al adaptador quién colocará las imagenes en la galería
+     */
     private void cargarImg()
     {
         imagenes=Imagenes.Imagenes(getContext());
@@ -126,6 +138,10 @@ public class Galeria_fragment extends Fragment {
         gridView.setAdapter(new Galeria_Adaptador(getContext(),bits));
     }
 
+    /**
+     * Este código permite accesar a la cámara y obtener una fotografía.
+     *
+     */
     private void abrirCamara()
     {
         Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -145,6 +161,13 @@ public class Galeria_fragment extends Fragment {
         }
 
     }
+
+    /**
+     * Este código permite crear un archivo fotográfico a partir de los datos proporcionados por la
+     * cámara y guarda la fotografía en el almacenamiento específico
+     * @return
+     * @throws IOException
+     */
     private File crearImg() throws IOException {
         String name="foto_ThinQ_";
         File directorio= getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -154,6 +177,10 @@ public class Galeria_fragment extends Fragment {
         return img;
     }
     @Override
+    /**
+     * El código permite ejecutar una visualización de la fotografía obtenida en un contenedor del xml,
+     * así mismo se realiza una actualización dl gridview(galería)
+     */
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode== RESULT_OK)
@@ -186,7 +213,6 @@ public class Galeria_fragment extends Fragment {
         switch (item.getItemId()){
             case R.id.menContImaSubir:
                 Subir(info.position);//se pasa como parametro la posicion de la imagen dentro del gridview
-
 
                 break;
             case R.id.menContImaEliminar:
