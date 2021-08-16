@@ -18,6 +18,11 @@
         android:title="Biblioteca libros"
         />
     <item
+        android:id="@+id/btAgenda"
+        android:icon="@drawable/agenda"
+        android:title="Agenda"
+        />
+    <item
         android:id="@+id/btTareas"
         android:icon="@drawable/tareas"
         android:title="Tareas Pendientes" />

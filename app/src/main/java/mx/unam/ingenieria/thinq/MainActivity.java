@@ -29,6 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
 
+import mx.unam.ingenieria.thinq.Fragments.Agenda_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Estadisticas_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Horario_fragment horario_fragment;
     private Libros_fragment libros_fragment;
     private Practica1_fragment practica1_fragment;
+    private Agenda_fragment agenda_fragment;
 
     private ProgressDialog TempDialog;
     private CountDownTimer countDownTimer;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         horario_fragment=new Horario_fragment();
         libros_fragment=new Libros_fragment();
         practica1_fragment= new Practica1_fragment();
+        agenda_fragment = new Agenda_fragment();
 
         auth=FirebaseAuth.getInstance();
 
@@ -142,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,practica1_fragment);
+                break;
+            case R.id.btAgenda:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container,agenda_fragment);
                 break;
 
             case R.id.btCerrarSecionMenu:
