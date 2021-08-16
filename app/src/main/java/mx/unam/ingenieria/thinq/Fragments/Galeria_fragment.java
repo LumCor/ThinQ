@@ -136,7 +136,7 @@ public class Galeria_fragment extends Fragment {
                     bits.add(BitmapFactory.decodeFile(imagenes.get(i)));
                     Log.d("Ojo2","Se cargo una imagen");
                 }
-
+        gridView.setAdapter(null);
         gridView.setAdapter(new Galeria_Adaptador(getContext(),bits));
     }
 
