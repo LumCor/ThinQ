@@ -24,6 +24,8 @@
         <activity android:name=".AgregarEventosActivity" />
         <activity android:name=".Activity_CrearHorario" />
         <activity android:name=".Activity_EditarMateria" />
+        <activity android:name=".Activity_EditTarea"/>
+        <activity android:name=".Activity_EditTarea2"/>
         <activity android:name=".VerPDFActivity" />
         <activity android:name=".RegistrarseActivity" />
         <activity android:name=".IniciaSecionActivity" />

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:gravity="center"
+    android:layout_margin="8dp"
     >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#008080"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="10dp"
+        android:layout_margin="7dp"
+        app:cardUseCompatPadding="false"
+        >
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -29,7 +42,7 @@
             <TextView
                 android:id="@+id/txtvGrupo"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="wrap_content"
                 android:text="Grupo"
                 android:textSize="20sp"
@@ -39,7 +52,7 @@
                 android:id="@+id/txtvDias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:textSize="18sp"
                 android:text="Dias"
                 android:visibility="visible" />
@@ -48,7 +61,7 @@
                 android:id="@+id/txtvNotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:textSize="18sp"
                 android:text="Nota" />
 
@@ -57,23 +70,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnEditar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
                 android:text="Editar"
                 android:layout_gravity="center"
+                app:srcCompat="@android:drawable/ic_menu_edit"
                 />
-            <Button
+            <ImageButton
                 android:id="@+id/btnEliminarMateria"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
                 android:text="Eliminar"
                 android:layout_gravity="center"
+                app:srcCompat="@android:drawable/ic_menu_delete"
                 />
 
         </LinearLayout>
@@ -84,10 +99,11 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#222222"
-        android:layout_marginTop="2dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
         />
+
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

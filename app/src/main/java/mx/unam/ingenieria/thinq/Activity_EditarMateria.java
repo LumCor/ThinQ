@@ -232,9 +232,13 @@ public class Activity_EditarMateria extends AppCompatActivity {
                 if(documentSnapshot.exists()){
                     String titulo = documentSnapshot.getString("Asignatura");
                     String contenido = documentSnapshot.getString("Notas");
+                    Long var = documentSnapshot.getLong("Grupo");
+                    int var2= var.intValue();
+                    String grupo = String.valueOf((var2));
 
                     txtTitulo.setText(titulo);
                     txtContenido.setText(contenido);
+                    txtGrupo.setText(grupo);
 
                 }
 
@@ -327,8 +331,8 @@ public class Activity_EditarMateria extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Los datos se actualizaron correctamente", Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
-                    startActivity(i);
+                    //Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
+                    //startActivity(i);
                     finish();
                 }
             });

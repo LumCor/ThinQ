@@ -57,6 +57,7 @@ public class Notas_fragment  extends Fragment
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
         CargarNotas();
+
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,10 +90,15 @@ public class Notas_fragment  extends Fragment
                     case 2:
                         if(resultCode==Activity.RESULT_OK)
                         {
-                            Log.d("Ojo",String.valueOf(data.getExtras().getInt("posicion")));
-                            notas.set(data.getExtras().getInt("posicion"),new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
-                            GuardarNotas();
+                                Log.d("Ojo", String.valueOf(data.getExtras().getInt("posicion")));
+                                notas.set(data.getExtras().getInt("posicion"), new Ficha_Nota(data.getExtras().getString("titulo"), data.getExtras().getString("contenido")));
+
                         }
+                        else
+                        {
+                            notas.remove(data.getExtras().getInt("posicion"));
+                        }
+                        GuardarNotas();
                         break;
                 }
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,6 +133,7 @@ public class Notas_fragment  extends Fragment
         }
 
     }
+
     private void GuardarNotas()
     {
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
