@@ -38,6 +38,7 @@ public class Horario_fragment extends Fragment {
 
         btnAgregarMateriaH = view.findViewById(R.id.btnAgregarMateriaH);
         recyclerViewHorario = view.findViewById(R.id.recyclerHorario);
+
         recyclerViewHorario.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mFirestore = FirebaseFirestore.getInstance();
 

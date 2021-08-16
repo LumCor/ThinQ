@@ -57,6 +57,7 @@ public class Notas_fragment  extends Fragment
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
         CargarNotas();
+
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,6 +128,7 @@ public class Notas_fragment  extends Fragment
         }
 
     }
+
     private void GuardarNotas()
     {
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));

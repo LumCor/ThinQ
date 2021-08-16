@@ -1,9 +1,12 @@
 package mx.unam.ingenieria.thinq.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,67 +16,72 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 import java.util.ArrayList;
 
+import mx.unam.ingenieria.thinq.Activity_CrearHorario;
+import mx.unam.ingenieria.thinq.Activity_EditTarea;
+import mx.unam.ingenieria.thinq.Activity_Nota;
+import mx.unam.ingenieria.thinq.Adaptadores.AdapterMaterias;
+import mx.unam.ingenieria.thinq.Adaptadores.Materias;
+import mx.unam.ingenieria.thinq.Adaptadores.Notas_Adaptador;
 import mx.unam.ingenieria.thinq.R;
 import mx.unam.ingenieria.thinq.Adaptadores.TPendiente;
 import mx.unam.ingenieria.thinq.Adaptadores.TPendiente_Adaptador;
 
-public class Tareas_fragment extends Fragment/*implements TPendiente_Adaptador.ItemSelected*/ {
+public class Tareas_fragment extends Fragment {
 
 
-    //EditarTarea_fragment editarTarea_fragment;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager manager;
-    RecyclerView.Adapter myAdapter;
-    ArrayList<TPendiente> tarea;
-    Button btnNuevaTarea;
+    private Button btnNuevaTarea;
+    RecyclerView recyclerViewTareas; //la listas que contendrá los cardview
+    TPendiente_Adaptador myAdapter;
+    FirebaseFirestore myFirestore;
+
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.tareas_fragment,container,false);
+
         btnNuevaTarea = view.findViewById(R.id.btnNuevaTarea);
-        recyclerView = view.findViewById(R.id.listPendientes);
-        recyclerView.setHasFixedSize(true);
-        manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        tarea = new ArrayList<>();
-        tarea.add(new TPendiente("Matematica", "Serie", "facil"));
-        tarea.add(new TPendiente("Ecuaciones", "Investigacion", "masomenos"));
-        tarea.add(new TPendiente("Programacion", "ProyectoAlv :'v", "dificil"));
-        tarea.add(new TPendiente("Matematica", "Serie", "facil"));
-        tarea.add(new TPendiente("Ecuaciones", "Investigacion", "masomenos"));
-        tarea.add(new TPendiente("Programacion", "ProyectoAlv :'v", "dificil"));
-        //btnNuevaTarea.setOnClickListener(onClickEditar);
+        recyclerViewTareas = view.findViewById(R.id.listPendientes);
+
+        recyclerViewTareas.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        myFirestore = FirebaseFirestore.getInstance();
+
+        Query query = myFirestore.collection("Tareas");
+
+        FirestoreRecyclerOptions<TPendiente> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<TPendiente>()
+                .setQuery(query, TPendiente.class).build();
+
+
+        myAdapter = new TPendiente_Adaptador(firestoreRecyclerOptions, this);
+        myAdapter.notifyDataSetChanged(); //Por si hay cambios instantaneos
+        recyclerViewTareas.setAdapter(myAdapter);
 
         btnNuevaTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                tarea.add(new TPendiente("Materia", "Descripcion","dificil"));
-                myAdapter.notifyDataSetChanged();
-
+                startActivity(new Intent(view.getContext(), Activity_EditTarea.class));
             }
         });
 
-        myAdapter = new TPendiente_Adaptador(getContext(), tarea);
-        recyclerView.setAdapter(myAdapter);
         return view;
     }
 
-    /*View.OnClickListener onClickEditar= new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            editarTarea_fragment= new EditarTarea_fragment();
-            getChildFragmentManager().beginTransaction().replace(R.id.editarTarea_fragment).commit();
-        }
-    };*/
+    @Override
+    public void onStart() { //Si el usuario esta dentro de la app realice cambios
+        super.onStart();
+        myAdapter.startListening();
+    }
 
-    /*@Override
-    public void onItemClicked(int index) {
-        Toast.makeText( getContext() , tarea.get(index).getMateria(), Toast.LENGTH_SHORT).show();
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
-    }*/
 }

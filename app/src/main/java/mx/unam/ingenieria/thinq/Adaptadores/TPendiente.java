@@ -1,10 +1,11 @@
 package mx.unam.ingenieria.thinq.Adaptadores;
 
 public class TPendiente {
-    String materia;
-    String descripcion;
-    String dificultad;
+    private String materia;
+    private String descripcion;
+    private String dificultad;
 
+//////
     public TPendiente() {
     }
 
@@ -18,9 +19,7 @@ public class TPendiente {
         return materia;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
-    }
+    public void setMateria(String materia) { this.materia = materia; }
 
     public String getDescripcion() {
         return descripcion;
@@ -38,12 +37,14 @@ public class TPendiente {
         this.dificultad = dificultad;
     }
 
-    @Override
+
+
+    /*@Override
     public String toString() {
         return "TPendiente{" +
                 "materia='" + materia + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", dificultad='" + dificultad + '\'' +
                 '}';
-    }
+    }*/
 }
