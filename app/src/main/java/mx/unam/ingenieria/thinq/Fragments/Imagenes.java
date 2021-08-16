@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Imagenes {
+    /**
+     * El siguiente código permite obtener un arreglo de las rutas de las imágenes guardadas en el almacenamiento específico dispositivo.
+     * @param context
+     * @return
+     */
     public static ArrayList<String> Imagenes(Context context) {
-
-        //Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //int column_index_data;
-        //Cursor cursor;
-        //Uri uri;
         ArrayList<String> AllImages=new ArrayList<>();
         String AbsoultePathOfImage = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() ;
         File file = new File(AbsoultePathOfImage);

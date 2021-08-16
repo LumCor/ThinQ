@@ -90,16 +90,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
+
         ///Cargar fragments
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.container, pantallaPrincipal_fragment);
         fragmentTransaction.commit();
 
-
-
     }
 
+    /**
+     * El siguiente código permite cambiar el contenido del contenedor del xml, permitiendo alojar en su interior
+     * a los diferentes fragments según el botón pulsado
+     * @param item Elemento identificador del botón que permite asociar un fragment
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);

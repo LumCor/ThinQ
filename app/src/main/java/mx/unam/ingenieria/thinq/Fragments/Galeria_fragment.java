@@ -81,6 +81,9 @@ public class Galeria_fragment extends Fragment {
         gridView=view.findViewById(R.id.gvGaleria);
         progressBar=view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+        /**
+         * El siguiente código permite seleccionar alguna imagén de la galería y expandirla
+         */
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,7 +117,6 @@ public class Galeria_fragment extends Fragment {
 
     private void cargarImg()
     {
-
         imagenes=Imagenes.Imagenes(getContext());
         for(int i=0;i<imagenes.size();i++)
                 {
@@ -188,6 +190,11 @@ public class Galeria_fragment extends Fragment {
 
                 break;
             case R.id.menContImaEliminar:
+                File file=new File(imagenes.get(info.position));
+                file.delete();
+                bits.remove(info.position);
+                imagenes.remove(info.position);
+                gridView.setAdapter(new Galeria_Adaptador(getContext(),bits));
                 Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
 
                 break;
