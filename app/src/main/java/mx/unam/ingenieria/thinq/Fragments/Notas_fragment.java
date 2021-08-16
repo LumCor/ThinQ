@@ -90,10 +90,15 @@ public class Notas_fragment  extends Fragment
                     case 2:
                         if(resultCode==Activity.RESULT_OK)
                         {
-                            Log.d("Ojo",String.valueOf(data.getExtras().getInt("posicion")));
-                            notas.set(data.getExtras().getInt("posicion"),new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
-                            GuardarNotas();
+                                Log.d("Ojo", String.valueOf(data.getExtras().getInt("posicion")));
+                                notas.set(data.getExtras().getInt("posicion"), new Ficha_Nota(data.getExtras().getString("titulo"), data.getExtras().getString("contenido")));
+
                         }
+                        else
+                        {
+                            notas.remove(data.getExtras().getInt("posicion"));
+                        }
+                        GuardarNotas();
                         break;
                 }
         super.onActivityResult(requestCode, resultCode, data);
