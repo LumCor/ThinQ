@@ -348,8 +348,8 @@ public class Activity_CrearHorario extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Registro exitosa", Toast.LENGTH_SHORT).show();
 
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+            //Intent i = new Intent(this, MainActivity.class);
+            //startActivity(i);
             finish();
 
 
