@@ -232,9 +232,13 @@ public class Activity_EditarMateria extends AppCompatActivity {
                 if(documentSnapshot.exists()){
                     String titulo = documentSnapshot.getString("Asignatura");
                     String contenido = documentSnapshot.getString("Notas");
+                    Long var = documentSnapshot.getLong("Grupo");
+                    int var2= var.intValue();
+                    String grupo = String.valueOf((var2));
 
                     txtTitulo.setText(titulo);
                     txtContenido.setText(contenido);
+                    txtGrupo.setText(grupo);
 
                 }
 
