@@ -123,7 +123,7 @@ public class VerEventosActivity extends AppCompatActivity implements AdapterView
         String []datos = dato.split(", ");//se crea un arreglo en donde se dividen los datos que le llegan a la funcion donde tengan coma y espacio
 
         String sql = "delete from eventos where nombreEvento ='"+datos[0]+"' and" +
-                " ubicacion='"+datos[1]+"' and fechadesde='"+datos[2]+"' and " +
+                "ubicacion='"+datos[1]+"' and fechadesde='"+datos[2]+"' and " +
                 "fechahasta='"+datos[3]+"' and descripcion='"+datos[4]+"'";
 
         //String sql = "delete from eventos where concat(nombreEvento,', ', ubicacion,', '," + "fechadesde,', ', fechahasta,', ', descripcion) ='" + dato + "'";
@@ -140,6 +140,8 @@ public class VerEventosActivity extends AppCompatActivity implements AdapterView
 
             //informamos al usuario que ya se ha eliminado su dato
             Toast.makeText(getApplication(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+            finish();
+
 
         }catch (Exception ex){
             Toast.makeText(getApplication(), "Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();

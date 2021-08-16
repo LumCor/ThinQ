@@ -57,50 +57,53 @@ public class AgregarEventosActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
 
         //comparamos que opcion se está presionando (guardar o cancelar)
-        if (v.getId() == guardar.getId())
-        {
-            // guardar los datos de laa cajas de texto
-            //creamos objeto de tipo getApplication, le pasamos el nombre de la base de datos, le mandamos un valor nulo y la version de la base de datos
-            BDSQLite bd = new BDSQLite(getApplication(), "Agenda", null, 1);
-
-            //le asignamos la apertura de la base de datos en modo de escritura
-            SQLiteDatabase db = bd.getWritableDatabase();
-
-            //sentencia para insertar los datos a la base de datos y especificamos en que columnas vamos a insertar
-            String sql = "insert into eventos" +
-                    "(nombreEvento, ubicacion, fechadesde,horadesde,fechahasta,horahasta," +
-                    "descripcion) values('" +
-                    nombreEvento.getText() +
-                    "' , '" + ubicacion.getText() +
-                    "' , '" + fechadesde.getText() +
-                    "' , '" + horadesde.getText() +
-                    "' , '" + fechahasta.getText() +
-                    "' , '" + horahasta.getText() +
-                    "' , '" + descripcion.getText() + "')"; //con esto preparamos la sentencia sql
-
-            finish();
-            Toast.makeText(getApplicationContext(),"Registro correcto "+sql,Toast.LENGTH_SHORT).show();
-
-            try {
-                db.execSQL(sql);
-
-                //limpiar los campos
-                nombreEvento.setText("");
-                ubicacion.setText("");
-                fechadesde.setText("");
-                fechahasta.setText("");
-                horadesde.setText("");
-                horahasta.setText("");
-                descripcion.setText("");
-
-            }catch (Exception e) {
-                Toast.makeText(getApplication(), "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-
+        if(nombreEvento==null && ubicacion==null && fechadesde==null && horadesde==null && fechahasta==null && horahasta==null && descripcion==null){
+            Toast.makeText(getApplication(), "Llea todos los campos", Toast.LENGTH_SHORT).show();
         }
         else {
-            finish();
+            if (v.getId() == guardar.getId()) {
+                // guardar los datos de laa cajas de texto
+                //creamos objeto de tipo getApplication, le pasamos el nombre de la base de datos, le mandamos un valor nulo y la version de la base de datos
+                BDSQLite bd = new BDSQLite(getApplication(), "Agenda", null, 1);
+
+                //le asignamos la apertura de la base de datos en modo de escritura
+                SQLiteDatabase db = bd.getWritableDatabase();
+
+                //sentencia para insertar los datos a la base de datos y especificamos en que columnas vamos a insertar
+                String sql = "insert into eventos" +
+                        "(nombreEvento, ubicacion, fechadesde,horadesde,fechahasta,horahasta," +
+                        "descripcion) values('" +
+                        nombreEvento.getText() +
+                        "' , '" + ubicacion.getText() +
+                        "' , '" + fechadesde.getText() +
+                        "' , '" + horadesde.getText() +
+                        "' , '" + fechahasta.getText() +
+                        "' , '" + horahasta.getText() +
+                        "' , '" + descripcion.getText() + "')"; //con esto preparamos la sentencia sql
+
+                finish();
+                Toast.makeText(getApplicationContext(), "Registro correcto " + sql, Toast.LENGTH_SHORT).show();
+
+                try {
+                    db.execSQL(sql);
+
+                    //limpiar los campos
+                    nombreEvento.setText("");
+                    ubicacion.setText("");
+                    fechadesde.setText("");
+                    fechahasta.setText("");
+                    horadesde.setText("");
+                    horahasta.setText("");
+                    descripcion.setText("");
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplication(), "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            } else {
+                finish();
+            }
         }
     }
 }
