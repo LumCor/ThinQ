@@ -78,7 +78,8 @@ public class AgregarEventosActivity extends AppCompatActivity implements View.On
                     "' , '" + horahasta.getText() +
                     "' , '" + descripcion.getText() + "')"; //con esto preparamos la sentencia sql
 
-            Toast.makeText(getApplicationContext(),"registro de pendiente correcto "+sql,Toast.LENGTH_SHORT).show();
+            finish();
+            Toast.makeText(getApplicationContext(),"Registro correcto "+sql,Toast.LENGTH_SHORT).show();
 
             try {
                 db.execSQL(sql);
