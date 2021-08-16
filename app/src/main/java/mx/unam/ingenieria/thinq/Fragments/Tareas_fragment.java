@@ -34,14 +34,21 @@ import mx.unam.ingenieria.thinq.Adaptadores.TPendiente_Adaptador;
 
 public class Tareas_fragment extends Fragment {
 
+    /**
+     * En este fragment se cargan los elementos que están en la base de datos
+     * se muestran en cardviews y se acomodan en un recyclerView
+     */
 
     private Button btnNuevaTarea;
     RecyclerView recyclerViewTareas; //la listas que contendrá los cardview
     TPendiente_Adaptador myAdapter;
-    FirebaseFirestore myFirestore;
+    FirebaseFirestore myFirestore;//instancia la base de datos
 
 
-
+    /**
+     * Infla el view con "tareas_fragment" y se declaran los elementos del xml
+     * Obtiene la colección de la base de datos y construye el recyclerView con elementos tipo TPendiente
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,19 +58,19 @@ public class Tareas_fragment extends Fragment {
         recyclerViewTareas = view.findViewById(R.id.listPendientes);
 
         recyclerViewTareas.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        myFirestore = FirebaseFirestore.getInstance();
+        myFirestore = FirebaseFirestore.getInstance();//Instancia la base de datos
 
-        Query query = myFirestore.collection("Tareas");
+        Query query = myFirestore.collection("Tareas");//obtiene la colección de Tareas que existe en la base de datos
 
         FirestoreRecyclerOptions<TPendiente> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<TPendiente>()
-                .setQuery(query, TPendiente.class).build();
+                .setQuery(query, TPendiente.class).build(); //Guarda los datos de la colección en elementos TPendiente
 
 
-        myAdapter = new TPendiente_Adaptador(firestoreRecyclerOptions, this);
-        myAdapter.notifyDataSetChanged(); //Por si hay cambios instantaneos
-        recyclerViewTareas.setAdapter(myAdapter);
+        myAdapter = new TPendiente_Adaptador(firestoreRecyclerOptions, this);//los elementos obtenidos de la colección se estructuran en el adaptador
+        myAdapter.notifyDataSetChanged(); //Notifica si hay cambios instantaneos
+        recyclerViewTareas.setAdapter(myAdapter);//Ya estructurados los datos se colocan en el recyclerView
 
-        btnNuevaTarea.setOnClickListener(new View.OnClickListener() {
+        btnNuevaTarea.setOnClickListener(new View.OnClickListener() {//Inicia el gragment para crear una nueva tarea
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(view.getContext(), Activity_EditTarea.class));

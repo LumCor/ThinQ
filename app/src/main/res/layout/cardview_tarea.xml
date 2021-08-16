@@ -13,6 +13,7 @@
         app:cardElevation="10dp"
         android:layout_margin="7dp"
         app:cardUseCompatPadding="false"
+        android:id="@+id/cardView"
         >
 
     <LinearLayout

@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Activity_EditTarea extends AppCompatActivity {
+    /**
+     * En este activity el usuario ingresa los datos para crear una nueva tarea
+     */
+
     EditText edtMateria;
     EditText edtDescripcion;
     Switch swchFacil;
@@ -27,10 +31,11 @@ public class Activity_EditTarea extends AppCompatActivity {
     Button btnAgregarTarea;
     int dif =0;
 
+    FirebaseFirestore myFirestore;//Instancia de la base de datos
 
-    FirebaseFirestore myFirestore;
-
-
+    /**
+     * Declaración de los elementos de "edita_tarea" y se inicia
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,11 @@ public class Activity_EditTarea extends AppCompatActivity {
         edtDescripcion= findViewById(R.id.edtDescripcion);
         btnAgregarTarea= findViewById(R.id.btnAgregarTarea);
         btnCancelar= findViewById(R.id.btnCancelar);
+
+        /**
+         * Se implementan los Switch para identificar la dificultad que el usuasio selecciona.
+         * Para identificarlo se sa la variable "dif" que guarda un numero segun la dificultad.
+         */
 
         swchFacil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +71,6 @@ public class Activity_EditTarea extends AppCompatActivity {
             }
         });
 
-
-
         swchMasomenos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +87,6 @@ public class Activity_EditTarea extends AppCompatActivity {
             }
         });
 
-
         swchDificil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,11 +99,16 @@ public class Activity_EditTarea extends AppCompatActivity {
                     swchMasomenos.setVisibility(View.VISIBLE);
                     swchFacil.setVisibility(View.VISIBLE);
                     dif=0;
-                }Toast.makeText(getApplicationContext(), "Dificultad"+dif, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
+
+        /**
+         * Cuando se preciona "guardar", se inicia la función "guardarDatos()"
+         * Cuando se preciona "cancelar", se regresa a la  vista anterior
+         */
         btnAgregarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,17 +124,25 @@ public class Activity_EditTarea extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Obtiene los datos que el usuario ingresa en edit_tarea.xml y los envía a la base de datos
+     */
     private void guardarDatos(){
         String materia = edtMateria.getText().toString();
         String descripcion = edtDescripcion.getText().toString();
         String dificultad = "facil";
         Boolean ident = true;
 
+        //Identifica si el usuario no ha seleccionado una dificultad
         if(dif == 0){
             ident = false;
         }
 
+        //Verifica que todos los datos fueron llenados
         if(!materia.isEmpty() && !descripcion.isEmpty() && ident){
+
+            //El switch asigna en la variable "dificultad" el tipo de dificultad
             switch (dif){
                 case 1:
                     dificultad="facil";
@@ -135,22 +155,20 @@ public class Activity_EditTarea extends AppCompatActivity {
                     break;
             }
 
-            Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas nuestras variables
+            Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas la variables que se enviarán a las base
             map.put("materia", materia);
             map.put("descripcion", descripcion);
             map.put("dificultad", dificultad);
 
-            myFirestore.collection("Tareas").document().set(map);
+            myFirestore.collection("Tareas").document().set(map);//Envío de datos a la base
 
             Toast.makeText(getApplicationContext(), "Tarea registrada", Toast.LENGTH_SHORT).show();
 
             finish();
 
         }else{
-            Toast.makeText(getApplicationContext(), "LLena todos los datos solicitados o selecciona una dificultad", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Falta lLenar todos los datos solicitados o selecciona una dificultad", Toast.LENGTH_SHORT).show();
 
         }
-
-
     }
 }

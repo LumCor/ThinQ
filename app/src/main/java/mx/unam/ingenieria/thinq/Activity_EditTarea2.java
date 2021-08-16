@@ -19,9 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Activity_EditTarea2 extends AppCompatActivity {
+    /**
+     * En este activity el usuario ingresa los datos para editar una tarea
+     */
 
     private String articuloId;
-    private FirebaseFirestore myFirestore;
+    private FirebaseFirestore myFirestore;//Instancia de la base de datos
 
     EditText edtMateria;
     EditText edtDescripcion;
@@ -31,13 +34,17 @@ public class Activity_EditTarea2 extends AppCompatActivity {
     Button btnCancelar;
     Button btnEditarTarea;
     int dif =0;
+
+    /**
+     * Declaración de los elementos de "edita_tarea2" y se inicia
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edita_tarea2);
 
         myFirestore = FirebaseFirestore.getInstance();
-        articuloId = getIntent().getStringExtra("articuloId");
+        articuloId = getIntent().getStringExtra("articuloId");//obtiene la dirección del elemento que se quiere editar
 
         edtMateria= findViewById(R.id.edtMateria);
         swchFacil= findViewById(R.id.swchFacil);
@@ -47,6 +54,10 @@ public class Activity_EditTarea2 extends AppCompatActivity {
         btnEditarTarea= (Button)findViewById(R.id.btnEditarTarea);
         btnCancelar= (Button)findViewById(R.id.btnCancelar);
 
+        /**
+         * Se implementan los Switch para identificar la dificultad que el usuasio selecciona.
+         * Para identificarlo se sa la variable "dif" que guarda un numero segun la dificultad.
+         */
         swchFacil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +73,6 @@ public class Activity_EditTarea2 extends AppCompatActivity {
 
             }
         });
-
-
 
         swchMasomenos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +109,10 @@ public class Activity_EditTarea2 extends AppCompatActivity {
 
         cargarDatos();
 
+        /**
+         * Cuando se preciona "guardar", se inicia la función "guardarDatos()"
+         * Cuando se preciona "cancelar", se regresa a la  vista anterior
+         */
         btnEditarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +127,10 @@ public class Activity_EditTarea2 extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Carga los datos del emento que se quiere editar en el "edita_tarea2"
+     */
 
     private void cargarDatos(){
         myFirestore.collection("Tareas").document(articuloId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -131,17 +148,23 @@ public class Activity_EditTarea2 extends AppCompatActivity {
         });
     }
 
+    /**
+     * Obtiene los nuevos datos que el usuario ingresa en edit_tarea2.xml y los actualiza en la base de datos
+     */
     private void guardarDatos(){
         String materia = edtMateria.getText().toString();
         String descripcion = edtDescripcion.getText().toString();
         String dificultad="facil";
         boolean ident=true;
 
+        //Identifica si el usuario no ha seleccionado una dificultad
         if(dif == 0){
             ident = false;
         }
 
-        if(!materia.isEmpty() && !descripcion.isEmpty() && ident){
+        if(!materia.isEmpty() && !descripcion.isEmpty() && ident){ //Verifica que todos los datos fueron llenados
+
+            //El switch asigna en la variable "dificultad" el tipo de dificultad
             switch (dif){
                 case 1:
                     dificultad="facil";
@@ -154,11 +177,12 @@ public class Activity_EditTarea2 extends AppCompatActivity {
                     break;
             }
 
-            Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas nuestras variables
+            Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas la variables que se enviarán a las base
             map.put("materia", materia);
             map.put("descripcion", descripcion);
             map.put("dificultad", dificultad);
 
+            //Manda los nuevos datos en la dirección del elemento guardado
             myFirestore.collection("Tareas").document(articuloId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -173,8 +197,6 @@ public class Activity_EditTarea2 extends AppCompatActivity {
 
         }
 
-
     }
-
 
 }
