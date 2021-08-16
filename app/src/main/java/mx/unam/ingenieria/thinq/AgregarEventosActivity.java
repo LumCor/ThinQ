@@ -100,7 +100,7 @@ public class AgregarEventosActivity extends AppCompatActivity implements View.On
 
         }
         else {
-            return;
+            finish();
         }
     }
 }
