@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_margin="20dp"
+    android:layout_margin="8dp"
     >
 
     <androidx.cardview.widget.CardView
@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/txtvGrupo"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="wrap_content"
                 android:text="Grupo"
                 android:textSize="20sp"
@@ -52,7 +52,7 @@
                 android:id="@+id/txtvDias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:textSize="18sp"
                 android:text="Dias"
                 android:visibility="visible" />
@@ -61,7 +61,7 @@
                 android:id="@+id/txtvNotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="7dp"
                 android:textSize="18sp"
                 android:text="Nota" />
 
@@ -99,9 +99,8 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#222222"
-        android:layout_marginTop="2dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
         />
 
     </androidx.cardview.widget.CardView>
