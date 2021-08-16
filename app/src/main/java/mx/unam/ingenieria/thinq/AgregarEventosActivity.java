@@ -29,6 +29,7 @@ public class AgregarEventosActivity extends AppCompatActivity implements View.On
         horahasta = (EditText) findViewById(R.id.edtHoraHasta);
         descripcion = (EditText) findViewById(R.id.edtDescripcion);
 
+
         //vamos a obtener los parametros que se estan recibiendo desde la llamada de esta actividad, entonces hacemos:
         Bundle bundle = getIntent().getExtras();
         int dia = 0, mes = 0, anio = 0; //variables locales que nos ayudaran a almacenar los datos que se están recibiendo
@@ -56,8 +57,15 @@ public class AgregarEventosActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
 
+        String nombre = nombreEvento.getText().toString();
+        String ubi = ubicacion.getText().toString();
+        String desde = horadesde.getText().toString();
+        String hasta = horahasta.getText().toString();
+        String des = descripcion.getText().toString();
+
+
         //comparamos que opcion se está presionando (guardar o cancelar)
-        if(nombreEvento==null && ubicacion==null && fechadesde==null && horadesde==null && fechahasta==null && horahasta==null && descripcion==null){
+        if(nombre.isEmpty() && ubi.isEmpty()  && desde.isEmpty()  && hasta.isEmpty()  && des.isEmpty()){
             Toast.makeText(getApplication(), "Llea todos los campos", Toast.LENGTH_SHORT).show();
         }
         else {
