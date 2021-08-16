@@ -3,8 +3,7 @@
 
 
     <item android:id="@+id/menContImaEliminar"
-        android:title="Eliminar"
-        android:orderInCategory="102"/>
+        android:title="Eliminar"/>
 
 
 </menu>
