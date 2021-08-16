@@ -327,8 +327,8 @@ public class Activity_EditarMateria extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Los datos se actualizaron correctamente", Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
-                    startActivity(i);
+                    //Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
+                    //startActivity(i);
                     finish();
                 }
             });

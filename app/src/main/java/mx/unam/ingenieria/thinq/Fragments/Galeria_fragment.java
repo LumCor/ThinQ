@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -62,14 +63,12 @@ public class Galeria_fragment extends Fragment {
     private String ruta;
     private GridView gridView;
     private Galeria_Adaptador galeria_adaptador;
-    List<String> imagenesList;//lista donde se almacenaran las imagenes
-    List<Bitmap> bitmapList;//lista donde se anadiran las imagenes decodificadas
+    private ProgressBar progressBar;
     List<String> imagenes;
     List<Bitmap> bits=new ArrayList<Bitmap> ();
 
     private static final int Permission_toRead_Code=101;
 
-    //subiendo imagen
     private StorageReference mStorage;
 
     @Nullable
@@ -80,6 +79,8 @@ public class Galeria_fragment extends Fragment {
         imageView=view.findViewById(R.id.imageV);
         btCamara.setOnClickListener(v -> abrirCamara());
         gridView=view.findViewById(R.id.gvGaleria);
+        progressBar=view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,7 +95,7 @@ public class Galeria_fragment extends Fragment {
             cargarImg();
 
         registerForContextMenu(gridView);//hace el gesto de mantener presionado
-        mStorage= FirebaseStorage.getInstance().getReference();
+        mStorage= FirebaseStorage.getInstance().getReference();//creando una referencia de Firebase
 
         return view;
     }
@@ -155,18 +156,6 @@ public class Galeria_fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode== RESULT_OK)
         {
-            /*
-            Uri uri = data.getData();
-
-            StorageReference filePath = mStorage.child("fotos").child(uri.getLastPathSegment());
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getContext(),"se subio con exito",Toast.LENGTH_SHORT).show();
-                }
-            });*/
-
-
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
             imageView.setImageBitmap(imgBitmap);
             cargarImg();
@@ -194,37 +183,29 @@ public class Galeria_fragment extends Fragment {
 
         switch (item.getItemId()){
             case R.id.menContImaSubir:
-                Subir(info.position);
-                //Toast.makeText(getContext(),"subiendo archivo",Toast.LENGTH_SHORT).show();
+                Subir(info.position);//se pasa como parametro la posicion de la imagen dentro del gridview
+
 
                 break;
             case R.id.menContImaEliminar:
                 Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
-                break;
 
-            //agragar otras acciones
+                break;
         }
         return super.onContextItemSelected(item);
     }
 
     private void Subir(int poss) {
-
-        Uri uri = FileProvider.getUriForFile(getContext(),"mx.unam.ingenieria.thinq.fileprovider",new File(imagenes.get(poss)));
-
-        final StorageReference filePath=mStorage.child("MisFotos").child(imagenes.get(poss));
-
-        Log.d("path",":"+imagenes.get(poss));
-        Log.d("Bendito URI: ",":"+uri.toString());
+        Uri uri = FileProvider.getUriForFile(getContext(),"mx.unam.ingenieria.thinq.fileprovider",new File(imagenes.get(poss)));//Se almacena la imagen seleccionada con poss en un uri
+        final StorageReference filePath=mStorage.child("MisFotos").child(imagenes.get(poss));//Se hace referencia a la carpeta de almacenamiento
+        progressBar.setVisibility(View.VISIBLE);//haciendo visible el widget progressbar
         filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(),"Si se pudo subir el archivo en el storage",Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);//haciendo invisible el widget progressbar
+                Toast.makeText(getContext(),"Se guardó exitosamente la imagen",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
 
     }
 
