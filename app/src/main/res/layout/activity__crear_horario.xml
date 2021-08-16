@@ -23,32 +23,7 @@
 
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
 
-        >
-    <EditText
-        android:id="@+id/editTextCal1"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:hint="Calificacio1" />
-
-        <EditText
-            android:id="@+id/editTextCal2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="Calificacio2" />
-
-        <EditText
-            android:id="@+id/editTextCal3"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="Calificacio3" />
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/txtvAprobada"
