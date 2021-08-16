@@ -129,12 +129,14 @@ public class Galeria_fragment extends Fragment {
      */
     private void cargarImg()
     {
+
         imagenes=Imagenes.Imagenes(getContext());
         for(int i=0;i<imagenes.size();i++)
                 {
                     bits.add(BitmapFactory.decodeFile(imagenes.get(i)));
                     Log.d("Ojo2","Se cargo una imagen");
                 }
+        gridView.setAdapter(null);
         gridView.setAdapter(new Galeria_Adaptador(getContext(),bits));
     }
 
@@ -187,7 +189,7 @@ public class Galeria_fragment extends Fragment {
         {
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
             imageView.setImageBitmap(imgBitmap);
-
+            cargarImg();
         }
     }
 

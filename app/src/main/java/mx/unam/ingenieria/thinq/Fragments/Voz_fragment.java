@@ -3,6 +3,7 @@ package mx.unam.ingenieria.thinq.Fragments;
 import android.Manifest;
 import android.content.ClipData;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,9 +38,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.unam.ingenieria.thinq.Activity_Nota;
 import mx.unam.ingenieria.thinq.Adaptadores.Ficha_Adaptador;
 import mx.unam.ingenieria.thinq.Adaptadores.Galeria_Adaptador;
 import mx.unam.ingenieria.thinq.Adaptadores.ListaAudio_Adaptador;
+import mx.unam.ingenieria.thinq.Adaptadores.Notas_Adaptador;
 import mx.unam.ingenieria.thinq.R;
 
 public class Voz_fragment extends Fragment {
@@ -49,6 +53,7 @@ public class Voz_fragment extends Fragment {
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> audios=new ArrayList<>();
+    private static final int DELETE=Menu.FIRST;
 
     @Nullable
     @Override
@@ -108,7 +113,7 @@ public class Voz_fragment extends Fragment {
                 Toast.makeText(getContext(),"La grabación terminó",Toast.LENGTH_SHORT).show();
             }
         });
-        
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -173,6 +178,7 @@ public class Voz_fragment extends Fragment {
             Log.d("Ojo", "Se han añadido "+String.valueOf(i+1)+" canciones");
         }
         listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audiosdatos,audios));
+
     }
 
     /**
@@ -189,28 +195,31 @@ public class Voz_fragment extends Fragment {
     }
 
     @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_notas,menu);
+        menu.add(2,DELETE,0,"Borrar todos los audios");
 
-        MenuInflater inflater = getActivity().getMenuInflater();//vamos a inflar un menu
-        inflater.inflate(R.menu.menu_contextual_voz,menu);//el menu que vamos a inflar
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();//indica el elemento seleccionado
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-
-            case R.id.menContImaEliminar:
-                File file=new File(audios.get(info.position));
-                file.delete();
-                audios.remove(info.position);
-                try { cargarAudios(); } catch (IOException e) { e.printStackTrace(); }
-                Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
-
+        int id=item.getItemId();
+        switch (id)
+        {
+            case DELETE:
+                ArrayList<Ficha_Adaptador> audiosdatos=new ArrayList<>();
+                String AbsoultePathOfImage = getActivity().getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath() ;
+                File file = new File(AbsoultePathOfImage);
+                File[] files = file.listFiles();
+                for (int i = 0; i < files.length; i++)
+                    files[i].delete();
+                audiosdatos.clear();
+                audios.clear();
+                listAudios.setAdapter(new ListaAudio_Adaptador(getContext(),audiosdatos,audios));
                 break;
         }
-        return super.onContextItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 }
