@@ -268,7 +268,7 @@ public class Activity_CrearHorario extends AppCompatActivity {
         }
 
 
-        if (!asignatura.isEmpty() && !notas.isEmpty() && id && id2) {
+        if (!asignatura.isEmpty() && !notas.isEmpty() && !grupo.isEmpty() && id && id2) {
 
             Float promedio;
             int grupov;
