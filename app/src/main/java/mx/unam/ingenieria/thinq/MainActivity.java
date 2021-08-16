@@ -29,6 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
 
+import mx.unam.ingenieria.thinq.Fragments.Agenda_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Estadisticas_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_fragment;
 import mx.unam.ingenieria.thinq.Fragments.Galeria_menu;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Horario_fragment horario_fragment;
     private Libros_fragment libros_fragment;
     private Practica1_fragment practica1_fragment;
+    private Agenda_fragment agenda_fragment;
 
     private ProgressDialog TempDialog;
     private CountDownTimer countDownTimer;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         horario_fragment=new Horario_fragment();
         libros_fragment=new Libros_fragment();
         practica1_fragment= new Practica1_fragment();
+        agenda_fragment = new Agenda_fragment();
 
         auth=FirebaseAuth.getInstance();
 
@@ -87,16 +90,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
+
         ///Cargar fragments
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.container, pantallaPrincipal_fragment);
         fragmentTransaction.commit();
 
-
-
     }
 
+    /**
+     * El siguiente código permite cambiar el contenido del contenedor del xml, permitiendo alojar en su interior
+     * a los diferentes fragments según el botón pulsado
+     * @param item Elemento identificador del botón que permite asociar un fragment
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -120,11 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,galeria_menu);
                 break;
-            case R.id.btEstadisticas:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,estadisticas_fragment);
-                break;
 
             case R.id.btHorario:
                 fragmentManager = getSupportFragmentManager();
@@ -138,10 +141,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.container,libros_fragment);
                 break;
 
-            case R.id.Practica1:
+            case R.id.btAgenda:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,practica1_fragment);
+                fragmentTransaction.replace(R.id.container,agenda_fragment);
                 break;
 
             case R.id.btCerrarSecionMenu:

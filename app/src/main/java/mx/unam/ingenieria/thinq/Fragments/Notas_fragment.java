@@ -49,16 +49,17 @@ public class Notas_fragment  extends Fragment
     EditText txtTitulo,txtContenido;
     Notas_Adaptador notas_adaptador;
     ArrayList<Ficha_Nota> notas=new ArrayList<>();
-
     private static final int ADD=Menu.FIRST,DELETE=Menu.FIRST+1;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.notas_fragment,container,false);
         lista=view.findViewById(R.id.Lista_notas);
         CargarNotas();
-
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
+
+        //El siguiente accionador permite iniciar la actividad que muestra a detalle la nota seleccionada
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -76,6 +77,12 @@ public class Notas_fragment  extends Fragment
         return view;
     }
 
+    /**
+     *
+     * @param requestCode Es el código que determina el caso que se ejecuto, 1 si fue creación de nueva nota o 2 si fue edición o se vorro la nota
+     * @param resultCode Es el código que regresa la actividad, según el resultado de éxito u otro
+     * @param data Es el paquete de datos que regresa la actividad para editar o crear una nueva nota
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode)
@@ -90,17 +97,25 @@ public class Notas_fragment  extends Fragment
                     case 2:
                         if(resultCode==Activity.RESULT_OK)
                         {
-                            Log.d("Ojo",String.valueOf(data.getExtras().getInt("posicion")));
-                            notas.set(data.getExtras().getInt("posicion"),new Ficha_Nota(data.getExtras().getString("titulo"),data.getExtras().getString("contenido")));
-                            GuardarNotas();
+                                Log.d("Ojo", String.valueOf(data.getExtras().getInt("posicion")));
+                                notas.set(data.getExtras().getInt("posicion"), new Ficha_Nota(data.getExtras().getString("titulo"), data.getExtras().getString("contenido")));
+
                         }
+                        else
+                        {
+                            notas.remove(data.getExtras().getInt("posicion"));
+                        }
+                        GuardarNotas();
                         break;
                 }
         super.onActivityResult(requestCode, resultCode, data);
         }
 
 
-
+    /**
+     * El siguiente código lee (si existe) el archivo de texto guardado en el almacenamiento específico de la aplicación.
+     * Si existe un archivo, recupera los registros de notas en el.
+     */
     private void CargarNotas()
     {
         try
@@ -129,6 +144,10 @@ public class Notas_fragment  extends Fragment
 
     }
 
+    /**
+     * El siguiente código es mandado a llamar cada vez que se modifica la lista de guardado temporal del fragment.
+     * Permite guardar las notas en un archivo de texto en el almacenamiento específico.
+     */
     private void GuardarNotas()
     {
         lista.setAdapter(new Notas_Adaptador(getContext(),notas));
@@ -174,6 +193,11 @@ public class Notas_fragment  extends Fragment
         super.onCreateOptionsMenu(menu,inflater);
     }
 
+    /**
+     * El siguiente código permite ejecutar acciones del menu de opciones
+     * @param item identifica al botón que ha sido seleccionado
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {

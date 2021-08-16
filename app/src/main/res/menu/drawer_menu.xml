@@ -3,42 +3,39 @@
 
     <item
         android:id="@+id/btPerfil"
-        android:icon="@drawable/perfil"
-        android:title="Perfil" />
+        android:icon="@drawable/ic_home"
+        android:title="Inicio" />
     <item
         android:id="@+id/btHorario"
+        android:icon="@drawable/ic_horario"
         android:title="Horario"
         />
     <item
         android:id="@+id/btGaleria"
         android:icon="@drawable/ic_baseline_photo_album_24"
         android:title="Galería Multimedia" />
+
     <item
         android:id="@+id/btLibro"
+        android:icon="@drawable/ic_book"
         android:title="Biblioteca libros"
+        />
+    <item
+        android:id="@+id/btAgenda"
+        android:icon="@drawable/agenda"
+        android:title="Agenda"
         />
     <item
         android:id="@+id/btTareas"
         android:icon="@drawable/tareas"
         android:title="Tareas Pendientes" />
-    <item
-        android:id="@+id/btAjustes"
-        android:icon="@drawable/ajustes"
-        android:title="Ajustes"/>
-    <item
-        android:id="@+id/btEstadisticas"
-        android:icon="@drawable/ic_covid"
-        android:title="Estadisticas"
-        />
+
     <item
         android:id="@+id/btCerrarSecionMenu"
-        android:icon="@drawable/ic_covid"
-        android:title="Cerrar Sesion"
+        android:icon="@drawable/ic_exit"
+        android:title="Cerrar Sesión"
         />
-    <item
-        android:id="@+id/Practica1"
-        android:title="Práctica 1"
-        />
+
 
 
 </menu>

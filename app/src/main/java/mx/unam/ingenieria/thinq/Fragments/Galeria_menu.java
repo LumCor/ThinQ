@@ -30,6 +30,11 @@ public class Galeria_menu extends Fragment {
 
         return view;
     }
+
+    /**
+     * El siguiente código permite cambiar el contenido del contenedor del xml de este fragment, se mantendrá el elemento del menú inferior
+     * y pondrá el fragment seleccionado
+     */
     BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item)

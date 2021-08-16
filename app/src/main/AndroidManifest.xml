@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Activity_CrearHorario"></activity>
+        <activity android:name=".VerEventosActivity"></activity>
+        <activity android:name=".AgregarEventosActivity" />
+        <activity android:name=".Activity_CrearHorario" />
         <activity android:name=".Activity_EditarMateria" />
         <activity android:name=".Activity_EditTarea"/>
         <activity android:name=".Activity_EditTarea2"/>
@@ -31,8 +32,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ExpandirImagen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Activity_Nota"
-            android:theme="@style/Theme.AppCompat"/>
+        <activity
+            android:name=".Activity_Nota"
+            android:theme="@style/Theme.AppCompat" />
 
         <meta-data
             android:name="com.google.android.actions"

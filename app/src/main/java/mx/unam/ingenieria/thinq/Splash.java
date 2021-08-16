@@ -18,6 +18,10 @@ public class Splash extends Activity {
     FirebaseAuth auth;
     //boolean usuarioLogin;
 
+    /**
+     * Permite crear una pantalla de inicio
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

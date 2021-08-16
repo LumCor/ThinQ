@@ -20,21 +20,26 @@ public class ExpandirImagen extends AppCompatActivity {
     Galeria_Adaptador galeriaAdaptador;
     List<String> imagenes;
     List<Bitmap> bits=new ArrayList<Bitmap>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandir_imagen);
         imageView=(ImageView)findViewById(R.id.iv_completa);
+
+        //Se obtiene la posición de la imagen seleccionada
         Intent intent=getIntent();
         int posicion=intent.getExtras().getInt("Fotos_ThinQ");
-        imagenes=Imagenes.Imagenes(this);
 
+        //Se obtiene una lista con los bits de todas las imagenes disponibles
+        imagenes=Imagenes.Imagenes(this);
         for(int i=0;i<imagenes.size();i++)
         {
             bits.add(BitmapFactory.decodeFile(imagenes.get(i)));
         }
         galeriaAdaptador=new Galeria_Adaptador(this, bits);
-        imageView.setImageBitmap(galeriaAdaptador.imageArray.get(posicion));
 
+        //Se coloca en el contenedor la imagen que se solicitó
+        imageView.setImageBitmap(galeriaAdaptador.imageArray.get(posicion));
     }
 }

@@ -21,7 +21,14 @@ import java.util.Map;
 public class Activity_EditarMateria extends AppCompatActivity {
 
 
-    private String articuloId;
+    /**
+     *Este activity es muy parecido al CrearHorario, lo unico que cambia es que recupera informacion
+     *por medio de articulosId para asi poder editar el dato seleccionado.
+     *
+     *Declaracion de todos los objetos que se tomaran en cuenta
+     */
+
+    private String articuloId; //Con ayuda de esta variable recuperaremos informacion de la base de datos
     private FirebaseFirestore mFirestore;
 
     EditText txtTitulo;
@@ -46,10 +53,7 @@ public class Activity_EditarMateria extends AppCompatActivity {
     View listViewDo;
 
     TextView[] txtvIn = new TextView[7];
-
     TextView [] txtvFi = new TextView[7];
-
-
     int [] i={0,0,0,0,0,0,0};
 
     @Override
@@ -59,15 +63,10 @@ public class Activity_EditarMateria extends AppCompatActivity {
 
         mFirestore = FirebaseFirestore.getInstance();
         articuloId = getIntent().getStringExtra("articuloId"); //Para obtener el id en una nueva vista
-
-
-
         txtTitulo=findViewById(R.id.editTextTitulo);
         txtGrupo=findViewById(R.id.editTextGrupo);
         txtContenido=findViewById(R.id.editTextContenido);
         btnEditar=findViewById(R.id.btnEditarMateria);
-
-
 
         //Radio Button
         rbtnLu=findViewById(R.id.rbtnLu);
@@ -105,6 +104,11 @@ public class Activity_EditarMateria extends AppCompatActivity {
         txtvFi[5]=findViewById(R.id.txtHoraFinSa);
         txtvFi[6]=findViewById(R.id.txtHoraFinDo);
 
+        /**
+         * Al igual que en CrearHorario:
+         * Los siguientes OnClickListener serviran para agregar listView con respecto a cada dia
+         * estos dependeran de los RadioButton que se hayan seleccionado
+         */
         rbtnLu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,31 +214,37 @@ public class Activity_EditarMateria extends AppCompatActivity {
             }
         });
 
-        obtenerDatos();
+        obtenerDatos(); //Metodo para recuperar informacion y poder mostrarla en los textView
 
-
-
-
-
-        btnEditar.setOnClickListener(new View.OnClickListener() { //Si se da click en el botos, se actualizaran los datos
+        btnEditar.setOnClickListener(new View.OnClickListener() { //Si se da click en el boton, se actualizaran los datos
             @Override
             public void onClick(View v) {
-                actualizarDatos();
+                actualizarDatos(); //Metodo para guardar los nuevos datos escritos
 
             }
         });
     }
 
+    /**
+     * Metodo encargado de obtender la informacion seleccionada de la base de datos
+     * y mostrarla en los respectivos textview
+     */
     private void obtenerDatos(){
         mFirestore.collection("Materias").document(articuloId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
+                if(documentSnapshot.exists()){ //Si el documento existe...
                     String titulo = documentSnapshot.getString("Asignatura");
                     String contenido = documentSnapshot.getString("Notas");
+                    Long var = documentSnapshot.getLong("Grupo"); //Para esta variable, se
+                    //realizara un cateo ya que es un dato numerico y nosotros solamente queremos la
+                    //parte entera
+                    int var2= var.intValue();
+                    String grupo = String.valueOf((var2));
 
                     txtTitulo.setText(titulo);
                     txtContenido.setText(contenido);
+                    txtGrupo.setText(grupo);
 
                 }
 
@@ -243,7 +253,10 @@ public class Activity_EditarMateria extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Es el metodo que se encargara de subir la informacion recabada de los edittext en la base de datos
+     * Se realiza el mismo proceso que en el Activity CrearHorario
+     */
     private  void actualizarDatos(){
         String asignatura = txtTitulo.getText().toString();
         String notas = txtContenido.getText().toString();
@@ -256,24 +269,20 @@ public class Activity_EditarMateria extends AppCompatActivity {
         int grupov;
         grupov=Integer.parseInt(grupo);
 
-
         for (int j=0; j<7; j++){
             if (i[j]==1){
                 horario[j][0]=txtvIn[j].getText().toString();
                 horario[j][1]=txtvFi[j].getText().toString();
                 id2=true;
-
                 if (horario[j][0].isEmpty() && horario[j][1].isEmpty()){ //Para verificar que se hayan puesto todas las horas
                     id=false;
                 }
             }
         }
 
-
-        if (!asignatura.isEmpty() && !notas.isEmpty() && id && id2) {
+        if (!asignatura.isEmpty() && !notas.isEmpty() && !grupo.isEmpty() && id && id2) {
             Map<String, Object> map = new HashMap<>();
             map.put("Asignatura", asignatura);
-            //map.put("Dias", "Selecciona dias");
             map.put("Grupo", grupov);
             map.put("Notas", notas);
 
@@ -283,68 +292,43 @@ public class Activity_EditarMateria extends AppCompatActivity {
                     switch (j) {
                         case 0:
                             dias[j]=("Lu " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Lunes", "Lu" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 1:
                             dias[j]=("Ma " + horario[j][0] + "-" + horario[j][1] + ", " );
-                            //map.put("Martes", "Ma" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 2:
                             dias[j]=("Mi " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Miercoles", "Mi" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 3:
                             dias[j]=("Ju " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Jueves", "Ju" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 4:
                             dias[j]=("Vi " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Viernes", "Vi" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 5:
                             dias[j]=("Sa " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Sabado", "Sa" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 6:
                             dias[j]=("Do " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Domingo", "Do" + horario[j][0] + "-" + horario[j][1]);
                             break;
                     }
-
-
                 }
                 else {
                     dias[j]="";
                 }
             }
-
-
             map.put("Dias", dias[0] + dias[1] + dias[2] + dias[3] + dias[4] + dias[5] + dias[6]);
-            //map.put("fecha", new Date().getTime());
-
             mFirestore.collection("Materias").document(articuloId).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Los datos se actualizaron correctamente", Toast.LENGTH_SHORT).show();
-
-                    //Intent i = new Intent(Activity_EditarMateria.this, MainActivity.class);
-                    //startActivity(i);
                     finish();
                 }
             });
-
-
-
-            //Intent i = new Intent(this, Activity_CrearHorario.class);
-            //startActivity(i);
-
-
         }
         else {
             Toast.makeText(getApplicationContext(), "LLena todos los datos solicitados", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
 

@@ -25,11 +25,18 @@ import java.util.ArrayList;
 import mx.unam.ingenieria.thinq.R;
 import mx.unam.ingenieria.thinq.VerPDFActivity;
 
+/**
+ *Este adatador tambien estara dentro del menu de opciones que se encuentra en la aplicacion
+ * Sera el encargado de mostrarnos la lista de libros que se hayas subido a la base de datos
+ * Para que asi, al momento de seleccionar alguno, nos dirija a una activity la cual podra abir
+ * el archivo PDF para poder visualizarlo
+ *
+*/
 public class Libros_fragment extends Fragment {
 
     private ListView listViewLibros;
     private ArrayList<String> libros;
-    private StorageReference storageLibros; //Para traer la referencia de la base de datos
+    private StorageReference storageLibros; //Para traer la referencia de la base de datos Storage
 
     @Nullable
     @Override
@@ -37,7 +44,7 @@ public class Libros_fragment extends Fragment {
         View view=inflater.inflate(R.layout.libros_fragment,container,false);
 
         listViewLibros=view.findViewById(R.id.listviewLibros);
-        libros= new ArrayList<>();
+        libros= new ArrayList<>(); //Para que se puedan mostrar los libros en una lista
 
         //Inicializamos el storage
         storageLibros = FirebaseStorage.getInstance().getReference();
@@ -59,19 +66,17 @@ public class Libros_fragment extends Fragment {
                 listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //Una vez que se de click en algun titulo, este se abrira en un nuevo activity
                         final String titulo_seleccionado = listViewLibros.getItemAtPosition(position).toString();
 
-                        //abir en la activity elñ libro
+                        //abir el libro en el activity
                         Intent i= new Intent(view.getContext(), VerPDFActivity.class);
                         i.putExtra("TITULO LIBRO", titulo_seleccionado);
                         startActivity(i);
-
                     }
                 });
-
-
             }
-        }).addOnFailureListener((e) -> { //Una excepecion
+        }).addOnFailureListener((e) -> { //Una excepecion si es que ubo algun error
             AlertDialog.Builder builder1= new AlertDialog.Builder(view.getContext());
             builder1.setMessage("Ocurrio un error al cargar los libros. Revisa la conexion de internet y vuelva a itentarlo");
             builder1.setCancelable(true);
@@ -85,12 +90,6 @@ public class Libros_fragment extends Fragment {
             AlertDialog alert1= builder1.create();
             alert1.show();
         });
-
-
-
-
-
         return view;
-
     }
 }

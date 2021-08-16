@@ -27,6 +27,7 @@ public class Activity_Nota extends AppCompatActivity {
     String getTitle,getContent,caso;
     int pos;
     private static final int SALIR= Menu.FIRST;
+    private static final int BORRAR= Menu.FIRST+1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,7 @@ public class Activity_Nota extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menu_notas,menu);
         menu.add(1,SALIR,0,"Salir");
+        menu.add(2,BORRAR,0,"Borrar nota");
         return true;
     }
 
@@ -77,6 +79,14 @@ public class Activity_Nota extends AppCompatActivity {
         int id=item.getItemId();
         switch (id)
         {
+            case BORRAR:
+                Intent intent= new Intent(this, Notas_fragment.class);
+                intent.putExtra("titulo","");
+                intent.putExtra("contenido","null");
+                intent.putExtra("posicion",pos);
+                setResult(RESULT_CANCELED,intent);
+                finish();
+                break;
             case SALIR:
                 finish();
                 return true;

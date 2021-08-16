@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregarEventosActivity">
+
+    <EditText
+        android:id="@+id/edtNombreEvento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese nombre de evento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"/>
+
+    <EditText
+        android:id="@+id/edtUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese Ubicación"
+        app:layout_constraintTop_toBottomOf="@+id/edtNombreEvento"
+        app:layout_editor_absoluteX="0dp"/>
+    <TextView
+        android:id="@+id/ltvDesde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desde"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtUbicacion" />
+
+    <EditText
+        android:id="@+id/edtFechaDesde"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese "
+        app:layout_constraintTop_toBottomOf="@+id/ltvDesde"
+        app:layout_editor_absoluteX="0dp"/>
+
+    <EditText
+        android:id="@+id/edtHoraInicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/edtFechaDesde"
+        app:layout_editor_absoluteX="0dp"/>
+
+    <TextView
+        android:id="@+id/ltvHasta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtHoraInicio" />
+
+    <EditText
+        android:id="@+id/edtFechaHasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ltvHasta"
+        app:layout_editor_absoluteX="0dp"/>
+
+    <EditText
+        android:id="@+id/edtHoraHasta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/edtFechaHasta"
+        app:layout_editor_absoluteX="0dp"/>
+
+    <EditText
+        android:id="@+id/edtDescripcion"
+        android:hint="Descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/edtHoraHasta"
+        app:layout_editor_absoluteX="0dp"/>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginTop="40dp"
+        android:text="Guardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcion" />
+
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Cancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnGuardar"
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcion" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
