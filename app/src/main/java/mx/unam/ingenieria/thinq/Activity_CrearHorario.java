@@ -22,12 +22,8 @@ public class Activity_CrearHorario extends AppCompatActivity {
     EditText txtTitulo;
     EditText txtContenido;
     Button btnCrearDato;
-
-    EditText editTextCal1;
-    EditText editTextCal2;
-    EditText editTextCal3;
     EditText editTextGrupo;
-    TextView txtvAprobada;
+
 
 
     RadioButton rbtnLu;
@@ -107,21 +103,7 @@ public class Activity_CrearHorario extends AppCompatActivity {
         txtvFi[5]=findViewById(R.id.txtHoraFinSa);
         txtvFi[6]=findViewById(R.id.txtHoraFinDo);
 
-        //Practica  3;
-        editTextCal1=findViewById(R.id.editTextCal1);
-        editTextCal2=findViewById(R.id.editTextCal2);
-        editTextCal3=findViewById(R.id.editTextCal3);
         editTextGrupo=findViewById(R.id.editTextGrupo);
-        txtvAprobada=findViewById(R.id.txtvAprobada);
-
-
-
-
-
-
-
-
-
 
 
         rbtnLu.setOnClickListener(new View.OnClickListener() {
@@ -243,9 +225,6 @@ public class Activity_CrearHorario extends AppCompatActivity {
     private void crearDatos(){
         String asignatura = txtTitulo.getText().toString();
         String notas = txtContenido.getText().toString();
-        String cal1= editTextCal1.getText().toString();
-        String cal2= editTextCal2.getText().toString();
-        String cal3= editTextCal3.getText().toString();
         String grupo = editTextGrupo.getText().toString();
 
 
@@ -269,34 +248,15 @@ public class Activity_CrearHorario extends AppCompatActivity {
 
 
         if (!asignatura.isEmpty() && !notas.isEmpty() && !grupo.isEmpty() && id && id2) {
-
-            Float promedio;
             int grupov;
-            Float p1 = null, p2= null, p3= null;
-            Boolean aprobada;
-
             grupov=Integer.parseInt(grupo);
 
-            p1=Float.parseFloat(cal1);
-            p2=Float.parseFloat(cal2);
-            p3=Float.parseFloat(cal3);
-            promedio= (p1 + p2 + p3)/3;
-
-            if(promedio>=6) {
-                aprobada = true;
-
-            }
-            else {
-                aprobada = false;
-
-            }
 
 
             Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas nuestras variables
             map.put("Asignatura", asignatura);
             map.put("Notas", notas);
             map.put("Grupo", grupov);
-            map.put("Aprobada", aprobada);
 
 
             for (int j = 0; j < 7; j++) {

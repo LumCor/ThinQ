@@ -123,11 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,galeria_menu);
                 break;
-            case R.id.btEstadisticas:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,estadisticas_fragment);
-                break;
 
             case R.id.btHorario:
                 fragmentManager = getSupportFragmentManager();
@@ -141,11 +136,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.container,libros_fragment);
                 break;
 
-            case R.id.Practica1:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,practica1_fragment);
-                break;
             case R.id.btAgenda:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
