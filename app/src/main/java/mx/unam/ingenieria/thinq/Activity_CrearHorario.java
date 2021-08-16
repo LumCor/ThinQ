@@ -19,12 +19,14 @@ import java.util.Map;
 
 public class Activity_CrearHorario extends AppCompatActivity {
 
+    /**
+     *Declaracion de todos los objetos que se tomaran en cuenta
+    */
+
     EditText txtTitulo;
     EditText txtContenido;
     Button btnCrearDato;
     EditText editTextGrupo;
-
-
 
     RadioButton rbtnLu;
     RadioButton rbtnMa;
@@ -42,19 +44,15 @@ public class Activity_CrearHorario extends AppCompatActivity {
     View listViewSa;
     View listViewDo;
 
-    TextView[] txtvIn = new TextView[7];
+    TextView[] txtvIn = new TextView[7]; //Para indicar la hora de inicio
 
-    TextView [] txtvFi = new TextView[7];
-
-
-    int [] i={0,0,0,0,0,0,0};
+    TextView [] txtvFi = new TextView[7]; //Para indicar la hora fin
 
 
+    int [] i={0,0,0,0,0,0,0}; //Arreglo que depende de los dias que se seleccionaran
 
 
-
-
-    FirebaseFirestore mFirestore;
+    FirebaseFirestore mFirestore; //Instancia de la base de datos
 
 
     @Override
@@ -65,6 +63,7 @@ public class Activity_CrearHorario extends AppCompatActivity {
         txtTitulo=findViewById(R.id.editTextTitulo);
         txtContenido=findViewById(R.id.editTextContenido);
         btnCrearDato=findViewById(R.id.btnGuardarDatos);
+        editTextGrupo=findViewById(R.id.editTextGrupo);
         mFirestore=FirebaseFirestore.getInstance();
 
         //Radio Button
@@ -103,9 +102,12 @@ public class Activity_CrearHorario extends AppCompatActivity {
         txtvFi[5]=findViewById(R.id.txtHoraFinSa);
         txtvFi[6]=findViewById(R.id.txtHoraFinDo);
 
-        editTextGrupo=findViewById(R.id.editTextGrupo);
 
 
+        /**
+         * Los siguientes OnClickListener serviran para agregar listView con respecto a cada dia
+         * estos dependeran de los RadioButton que se hayan seleccionado
+        */
         rbtnLu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +214,9 @@ public class Activity_CrearHorario extends AppCompatActivity {
         });
 
 
+        /**
+         * Este OnClickListener es para crear el dato, on ayuda del metodo crearDatos();
+         */
         btnCrearDato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,18 +227,19 @@ public class Activity_CrearHorario extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Es el metodo que se encargara de subir la informacion recabada de los edittext en la base de datos
+     */
     private void crearDatos(){
         String asignatura = txtTitulo.getText().toString();
         String notas = txtContenido.getText().toString();
         String grupo = editTextGrupo.getText().toString();
-
-
-
-        String [][] horario =new String[7][2];
+        String [][] horario =new String[7][2]; //Contendra los dias con la hora de inicio y fin
         String [] dias = new String[7];
-        Boolean id=true, id2=false;
+        Boolean id=true, id2=false; //Identificadores para detectar que los campos esten llenos
 
-
+        //Para pasar las horas que se colocaron es nuestro nuevo arreglo horario
         for (int j=0; j<7; j++){
             if (i[j]==1){
                 horario[j][0]=txtvIn[j].getText().toString();
@@ -247,53 +253,42 @@ public class Activity_CrearHorario extends AppCompatActivity {
         }
 
 
-        if (!asignatura.isEmpty() && !notas.isEmpty() && !grupo.isEmpty() && id && id2) {
+        if (!asignatura.isEmpty() && !notas.isEmpty() && !grupo.isEmpty() && id && id2) { //Una vez que todos los campos esten llenos
             int grupov;
+
             grupov=Integer.parseInt(grupo);
-
-
-
             Map<String, Object> map = new HashMap<>(); //Un mapa que contrendra todas nuestras variables
             map.put("Asignatura", asignatura);
             map.put("Notas", notas);
             map.put("Grupo", grupov);
 
-
+            //En esta parte se agregara por dia aquellas horas que se hayan escrito y se agregara
+            //en un arreglo que cada posicion es un dia
             for (int j = 0; j < 7; j++) {
                 if (i[j] == 1) {
-
                     switch (j) {
                         case 0:
                             dias[j]=("Lu " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Lunes", "Lu" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 1:
                             dias[j]=("Ma " + horario[j][0] + "-" + horario[j][1] + ", " );
-                            //map.put("Martes", "Ma" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 2:
                             dias[j]=("Mi " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Miercoles", "Mi" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 3:
                             dias[j]=("Ju " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Jueves", "Ju" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 4:
                             dias[j]=("Vi " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Viernes", "Vi" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 5:
                             dias[j]=("Sa " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Sabado", "Sa" + horario[j][0] + "-" + horario[j][1]);
                             break;
                         case 6:
                             dias[j]=("Do " + horario[j][0] + "-" + horario[j][1] + ", ");
-                            //map.put("Domingo", "Do" + horario[j][0] + "-" + horario[j][1]);
                             break;
                     }
-
-
                 }
                 else {
                     dias[j]="";
@@ -302,27 +297,15 @@ public class Activity_CrearHorario extends AppCompatActivity {
 
 
             map.put("Dias", dias[0] + dias[1] + dias[2] + dias[3] + dias[4] + dias[5] + dias[6]);
-            //map.put("fecha", new Date().getTime());
 
-            mFirestore.collection("Materias").document().set(map);
+            mFirestore.collection("Materias").document().set(map); //Se agrega a la base de datos
 
             Toast.makeText(getApplicationContext(), "Registro exitosa", Toast.LENGTH_SHORT).show();
 
-            //Intent i = new Intent(this, MainActivity.class);
-            //startActivity(i);
             finish();
-
-
         }
         else {
             Toast.makeText(getApplicationContext(), "LLena todos los datos solicitados", Toast.LENGTH_SHORT).show();
-
         }
-
-        //mFirestore.collection("Materias").document("1").set(map); este crea un id especifico
-
-
-
     }
-
 }
