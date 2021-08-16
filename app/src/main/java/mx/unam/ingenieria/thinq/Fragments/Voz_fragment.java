@@ -12,7 +12,10 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -183,5 +186,31 @@ public class Voz_fragment extends Fragment {
         File file=File.createTempFile("audio_ThinQ_",".mp3",directorio);
 
         return file.getPath();
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();//vamos a inflar un menu
+        inflater.inflate(R.menu.menu_contextual_voz,menu);//el menu que vamos a inflar
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();//indica el elemento seleccionado
+
+        switch (item.getItemId()){
+
+            case R.id.menContImaEliminar:
+                File file=new File(audios.get(info.position));
+                file.delete();
+                audios.remove(info.position);
+                try { cargarAudios(); } catch (IOException e) { e.printStackTrace(); }
+                Toast.makeText(getContext(),"eliminando archivo",Toast.LENGTH_SHORT).show();
+
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 }

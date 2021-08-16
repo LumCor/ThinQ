@@ -187,7 +187,7 @@ public class Galeria_fragment extends Fragment {
         {
             Bitmap imgBitmap= BitmapFactory.decodeFile(ruta);
             imageView.setImageBitmap(imgBitmap);
-            cargarImg();
+
         }
     }
 
