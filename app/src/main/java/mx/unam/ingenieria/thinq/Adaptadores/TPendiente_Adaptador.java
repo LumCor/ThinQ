@@ -116,6 +116,7 @@ public class TPendiente_Adaptador  extends FirestoreRecyclerAdapter<TPendiente, 
 
         /**
          * Se vinculan las imagenes con la dificultad que corresponde
+         * Se vincula el color del cardView segun la dificultad
          */
         if(tarea.getDificultad().equals("facil")){
             holder.imgvDificultad.setImageResource(R.drawable.facil);
