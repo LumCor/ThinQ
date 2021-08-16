@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,8 +89,8 @@ public class AdapterMaterias extends FirestoreRecyclerAdapter<Materias, AdapterM
         TextView txtvdia;
         TextView txtvnota;
         TextView txtGrupo;
-        Button btneditar;
-        Button btnEliminarMateria;
+        ImageButton btneditar;
+        ImageButton btnEliminarMateria;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
